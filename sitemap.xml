@@ -7,7 +7,6 @@
 <url> <loc>https://idzc.me/page/4</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/2ff1e3b74690456db18f83c48f3cf8c1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/76d72d9427124d79a05c1d451cf747c9</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/posts/346b8ecb73b647ea87dc72acc5ee12cc</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/f5fb79828baf4e678aa1aabaeba54315</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/9ecf1d332af74b98b1450e2b443a45f1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/84ca7ed059db4583a37b2a19f9dbfb7a</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -28,6 +27,8 @@
 <url> <loc>https://idzc.me/posts/5817471f63ef4d76bd879ec0245cf4af</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/442b4fbc623d4e3aa638f3a7e0739eb0</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/2bcafec576ec4a79b892c9ec55dff1ac</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/posts/1bc52f002a8e4e4eab5b1ac6b4e9f86d</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/posts/346b8ecb73b647ea87dc72acc5ee12cc</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/嵌入式</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/Zynq7000</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/编程语言</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -43,7 +44,6 @@
 <url> <loc>https://idzc.me/tags/Python</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Crawler</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Archlinux</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/tags/AwesomeWM</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Crack</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/vim</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Linux</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -56,6 +56,7 @@
 <url> <loc>https://idzc.me/tags/Java</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/VMware</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/操作系统</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/tags/AwesomeWM</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/archives/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/links/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
