@@ -17,7 +17,6 @@
 <url> <loc>https://idzc.me/posts/a0f3a792bdc044f9aec5149871fa3085</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/2d23cde5508d4675bb1fe81ddab169f1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/c7270632dbcf4a96837f7de3bd45d3e2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/posts/7e3f72be2d61412c9d8ef1b91e024e3b</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/1bc52f002a8e4e4eab5b1ac6b4e9f86d</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/e596c3bd02d44424b7798059dbb02db6</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/558e0b131d69454788d5042384d52a48</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -29,6 +28,7 @@
 <url> <loc>https://idzc.me/posts/5817471f63ef4d76bd879ec0245cf4af</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/442b4fbc623d4e3aa638f3a7e0739eb0</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/2bcafec576ec4a79b892c9ec55dff1ac</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/posts/7e3f72be2d61412c9d8ef1b91e024e3b</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/嵌入式</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/Zynq7000</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/编程语言</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -36,10 +36,10 @@
 <url> <loc>https://idzc.me/categories/Linux学习</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/Archlinux</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/工具配置</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/categories/其他</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/设计模式</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/计算机基础</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/操作系统</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/categories/其他</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Zynq</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Python</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Crawler</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -49,14 +49,14 @@
 <url> <loc>https://idzc.me/tags/vim</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Linux</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Matlab</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/tags/About</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/tags/时间</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Script</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Cloud</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/DesignPattern</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Java</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/VMware</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/操作系统</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/tags/About</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/tags/时间</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/archives/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/links/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
