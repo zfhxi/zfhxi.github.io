@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Linux上一些奇技淫巧">
+    <meta property="og:type" content="blog">
+  <title>Linux上一些奇技淫巧</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Icon"><span>📄</span></span>
+            <span class="Header__Title">Linux上一些奇技淫巧</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Fri, Aug 7, 2020</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--orange">
+        <a href="tag/Linux.html">Linux</a>
+      </span>
+            <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--orange">
+        <a href="tag/Script.html">Script</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/9eb5012225654e8ba9d068606896322a" class="PageRoot"><ul id="https://www.notion.so/9b659e3498a945848a424b47e31034a5" class="ColorfulBlock ColorfulBlock--ColorGray TableOfContents"><li class="TableOfContents__Item"><a href="#https://www.notion.so/352757eec66d4feb94de0d79285e7391"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">保存git账号</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/9fa8bf11941f47cea667cb4bb887d342"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">注销登录的用户</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/03c7659f86784fd7a8b9679deb38be82"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">远程登录服务器配置ssh密钥</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/20d18a852c6d4d7d90f861841d7c6a93"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">某些命令免密码</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/ed3c06f1d01b40b2bf24f541cba82576"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">ArchLinux连接vpn</span></span></div></a></li></ul><h2 id="https://www.notion.so/352757eec66d4feb94de0d79285e7391" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/352757eec66d4feb94de0d79285e7391"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">保存git账号</span></span></h2><div id="https://www.notion.so/ed81fe8139ac4a5d98c4a4e57540dd51" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">第一次push需要输入密码，（然后自动被保存）后面就不需要了。输入</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">git config --global credential.helper store</code></span><span class="SemanticString">，产生</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">~/.gitconfig</code></span><span class="SemanticString">其配置：</span></span></p></div><pre id="https://www.notion.so/5650f5331d8e45399bc341000647cf4e" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>[credential]
+		helper = store</span></span></span></code></pre><div id="https://www.notion.so/19cf24aeb9e449a08aa9925880fb768a" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h2 id="https://www.notion.so/9fa8bf11941f47cea667cb4bb887d342" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/9fa8bf11941f47cea667cb4bb887d342"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">注销登录的用户</span></span></h2><div id="https://www.notion.so/8cbfd7f36542429cb1b0dc4457aa01ea" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在服务器上跑程序，发现一个奇怪bug，</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ps -ef|grep xxx</code></span><span class="SemanticString">并搜索不了该运行的程序，而</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">nvdia-smi</code></span><span class="SemanticString">中却有该程序运行。于是想到了强制远程注销登录用户。参考自：</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://blog.csdn.net/qq_34845121/article/details/76549369">https://blog.csdn.net/qq_34845121/article/details/76549369</a></span></span></p></div><div id="https://www.notion.so/e49af27d2f0f4d8cb9c826a5932d726e" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">进入根用户</span></span></p></div><div id="https://www.notion.so/0a0f4e2069d94560a71269f0cd9b35ac" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">su </code></span><span class="SemanticString">或者 </span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">su - root</code></span></span></p></div><div id="https://www.notion.so/6dde21f5ee204139930459157116edfb" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">查看当前在线用户</span></span></p></div><div id="https://www.notion.so/7ffe5a792ac842aca1ddaa872668ad21" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">w </code></span><span class="SemanticString">或者 </span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">who -a</code></span></span></p></div><pre id="https://www.notion.so/29d1aafc4ddf4ccbae19b7750bdbdf64" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>USER TTY FROM LOGIN@ IDLE JCPU PCPU WHAT
+ch tty7 :0 08:44 2:30m 12:09 0.16s gnome-session
+ch pts/0 :0.0 09:09 1:33m 45.22s 44.89s gedit messages
+ch pts/2 :0.0 10:24 49:16 11.61s 11.44s stardict
+test pts/3 :0.0 10:25 0.00s 0.62s 24.39s gnome-terminal</span></span></span></code></pre><div id="https://www.notion.so/baefb5ef6b674d49803aab1798f0f738" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">注销用户</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code"> test</code></span><span class="SemanticString">，</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">pkill -kill -t pts/3</code></span><span class="SemanticString">，</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">-t </code></span><span class="SemanticString">后面连接终端的名称</span></span></p></div><div id="https://www.notion.so/9efc2e5b030642d0afc78c040e81d196" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">另：删除用户</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">userdel -r test</code></span></span></p></div><div id="https://www.notion.so/e4c1caad3ef34a6eb4f13264a5da4127" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">发现test 还在登录，只能查看用户test的所有进程：</span></span></p></div><pre id="https://www.notion.so/fb8d7088bc314995a71ff9a60bb1b5ea" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>ps -eLf | grep &#x27;test&#x27;
+kill -9 xxxpid</span></span></span></code></pre><div id="https://www.notion.so/f2d35aeac5434e40b2b01d5a0a803183" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">再执行，</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">userdel -r test</code></span></span></p></div><h2 id="https://www.notion.so/03c7659f86784fd7a8b9679deb38be82" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/03c7659f86784fd7a8b9679deb38be82"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">远程登录服务器配置ssh密钥</span></span></h2><div id="https://www.notion.so/ee97bd1754a94e679d8a9584957e5a2f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">来自：</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://p3terx.com/archives/configuring-ssh-keys-with-sshkeygen-and-sshcopyid.html">https://p3terx.com/archives/configuring-ssh-keys-with-sshkeygen-and-sshcopyid.html</a></span></span></p></div><ol class="NumberedListWrapper"><li id="https://www.notion.so/1f0ed44970074277a38cd9aad7555c97" class="NumberedList" value="1"><span class="SemanticStringArray"><span class="SemanticString">在本地终端中执行 </span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ssh-keygen</code></span><span class="SemanticString">，生成密钥对（私钥和公钥），（除了修改</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Enter file in which to save the key (/home/xxxx/.ssh/id_rsa):</code></span><span class="SemanticString">）一路回车 (En­ter)。</span></span></li><li id="https://www.notion.so/a5efcf6c33f14277b2fd79f0f6b9111c" class="NumberedList" value="2"><span class="SemanticStringArray"><span class="SemanticString">假如1中~/.ssh下生成了id_rsa.pub和id_ras文件</span></span></li><li id="https://www.notion.so/d3eeb1de36a74379927b476ecd2dd0dd" class="NumberedList" value="3"><span class="SemanticStringArray"><span class="SemanticString">使用</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code"> ssh-copy-id </code></span><span class="SemanticString">自动将公钥上传并配置到 服务器上，</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ssh-copy-id -i ~/.ssh/id_rsa.pub User@HostName -p Port</code></span></span></li><li id="https://www.notion.so/1f32c0f8eeff41b081285fdfb1496819" class="NumberedList" value="4"><span class="SemanticStringArray"><span class="SemanticString">使用 SSH 配置文件管理会话，本地</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">vim ~/.ssh/config</code></span><span class="SemanticString">：</span></span><pre id="https://www.notion.so/498f2ade62b74530bcec79691fdd9793" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Host myvps
+    HostName 233.233.233.233
+    Port 2333
+    User myvps
+    IdentityFile &quot;~/.ssh/id_rsa&quot;
+    IdentitiesOnly yes</span></span></span></code></pre><div id="https://www.notion.so/8a2cd1d5ebb048a4ba589059377161d3" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后赋予权限</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">chmod 600 ~/.ssh/config</code></span></span></p></div></li><li id="https://www.notion.so/942eb733932d499688e59ebe6a9ca2d3" class="NumberedList" value="5"><span class="SemanticStringArray"><span class="SemanticString">终端直接</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ssh myvps</code></span><span class="SemanticString">实现免密登录。</span></span></li></ol><div id="https://www.notion.so/4eb5c7a7f2554962aecc1b88d4b45e7b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h2 id="https://www.notion.so/20d18a852c6d4d7d90f861841d7c6a93" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/20d18a852c6d4d7d90f861841d7c6a93"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">某些命令免密码</span></span></h2><pre id="https://www.notion.so/880785dce42d498ebdbca17b6ea67b09" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>sudo visudo
+# 添加（czm为用户名，<span class="token operator">/</span>usr<span class="token operator">/</span>bin<span class="token operator">/</span>create_ap为命令的路径）
+czm <span class="token constant">ALL</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token constant">ALL</span><span class="token punctuation">)</span> <span class="token constant">NOPASSWD</span><span class="token operator">:</span> <span class="token operator">/</span>usr<span class="token operator">/</span>bin<span class="token operator">/</span>create_ap</span></span></span></code></pre><div id="https://www.notion.so/78859eb8701a4053bf9284856a79a5fd" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h2 id="https://www.notion.so/ed3c06f1d01b40b2bf24f541cba82576" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/ed3c06f1d01b40b2bf24f541cba82576"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">ArchLinux连接vpn</span></span></h2><pre id="https://www.notion.so/37b9b5cbe34646569454d669d7a95fd3" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>yay <span class="token operator">-</span><span class="token constant">S</span> <span class="token operator">--</span>noconfirm networkmanager<span class="token operator">-</span>l2tp networkmanager<span class="token operator">-</span>strongswan networkmanager<span class="token operator">-</span>openconnect networkmanager<span class="token operator">-</span>openvpn networkmanager<span class="token operator">-</span>pptp networkmanager<span class="token operator">-</span>vpnc</span></span></span></code></pre><div id="https://www.notion.so/8561bb6b19194a398c451ba607474ae2" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

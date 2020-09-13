@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Composite模式实现及与Iterator模式结合">
+    <meta property="og:type" content="blog">
+  <title>Composite模式实现及与Iterator模式结合</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Title">Composite模式实现及与Iterator模式结合</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Mon, May 18, 2020</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--default">
+        <a href="tag/DesignPattern.html">DesignPattern</a>
+      </span>
+            <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--orange">
+        <a href="tag/Java.html">Java</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/d3775fde43874d0aa62f934af4ff2556" class="PageRoot"><ul id="https://www.notion.so/4454a443cf8a4628835a5a6d22ec2b13" class="ColorfulBlock ColorfulBlock--ColorGray TableOfContents"><li class="TableOfContents__Item"><a href="#https://www.notion.so/7e069d0f1a72462f916d3cb89f959de3"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">实现</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/dd2859ea0e104bd8a49f2d133c10782e"><div style="margin-left:24px"><span class="SemanticStringArray"><span class="SemanticString">关注的问题</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/cfacd117b9c54886a303ef3abfaa9fc7"><div style="margin-left:24px"><span class="SemanticStringArray"><span class="SemanticString">实例</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/b79333cf738244f0aaf23414e17ee732"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">与Iterator的结合</span></span></div></a></li></ul><h1 id="https://www.notion.so/7e069d0f1a72462f916d3cb89f959de3" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/7e069d0f1a72462f916d3cb89f959de3"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">实现</span></span></h1><div id="https://www.notion.so/2b78cb05129c4e2b8a940e809569f53f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">基于前文Composite模式，实现简单Demo</span></span></p></div><h2 id="https://www.notion.so/dd2859ea0e104bd8a49f2d133c10782e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/dd2859ea0e104bd8a49f2d133c10782e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">关注的问题</span></span></h2><ul class="BulletedListWrapper"><li id="https://www.notion.so/e84ebef7f0e74283a2309aa961f0b17a" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">保持从子部件到父部件的引用能简化组合结构的遍历和管理</strong></span><span class="SemanticString">。父部件引用可以简化结构的上移和组件的删除。通常在Component类中定义父部件引用。Leaf和Composite类可以继承这个引用以及管理这个引用的那些操作。</span></span></li><li id="https://www.notion.so/6ea55261200a4e9b85c077b3420c2729" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Composte模式的目的之一是</span><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">使得用户不知道他们正在使用的具体的Leaf和Composite类</strong></span><span class="SemanticString">。因此，Component类应为Leaf和Composite类尽可能多定义一些公共操作。Component类通常为这些操作提供缺省的实现，而Leaf和Composite子类可以对它们进行重定义。</span></span></li><li id="https://www.notion.so/4ac97c10d1e24f3d886a37e7c7834b1e" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">声明管理子部件的操作</strong></span><span class="SemanticString">。虽然C omposite类实现了Add和Remove操作用于管理子部件，但在Composite模式中一个重要的问题是：在 Composite类层次结构中哪一些类声明这些操作。是应该在Component中声明这些操作，并使这些操作对 Leaf类有意义呢，还是只应该在Composite和它的子类中声明并定义这些操作呢？</span></span></li><li id="https://www.notion.so/350ef2b8676a40028709f96a381ac7ad" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">存贮组件最好用哪一种数据结构？</strong></span><span class="SemanticString"> Composite可使用多种数据结构存贮它们的子节点，包括连接列表、树、数组和hash表。数据结构的选择取决于效率。</span></span></li><li id="https://www.notion.so/5424bd97cfb34812a4d79a3d0977f090" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">透明组合模式 和 安全组合模式 都有各自的优点和缺点，应该优先选择哪一种呢？</strong></span><span class="SemanticString">透明组合模式 将公共接口封装到抽象根节点（Component）中，那么系统所有节点就具备一致行为，所以如果当系统绝大多数层次具备相同的公共行为时，采用 透明组合模式 也许会更好（代价：为剩下少数层次节点引入不需要的方法）；而如果当系统各个层次差异性行为较多或者树节点层次相对稳定（健壮）时，采用安全组合模式</span></span></li></ul><h2 id="https://www.notion.so/cfacd117b9c54886a303ef3abfaa9fc7" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/cfacd117b9c54886a303ef3abfaa9fc7"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">实例</span></span></h2><div id="https://www.notion.so/d5f269a7df8f405f93cb8da04acdfa25" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">场景</strong></span></span></p></div><div id="https://www.notion.so/4bd8d1ec51604a49994d522bc5675fa8" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">针对上一文中的iterator模式的餐馆合并实例，我们提出新的需求：</span></span></p></div><div id="https://www.notion.so/dde1f5846f1b4938aaea803fd5f9cfa8" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">给正餐菜单增加“甜点”子菜单。如图，让甜点菜单变成正餐菜单中的一个子节点，我们想要的类似下图。但很明显，iterator模式的设计无法满足：</span></span></p></div><div id="https://www.notion.so/8d371867a5ed47d997c366449657e2c5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/2ea000aded634d24ad9472aa030db9be" class="Image Image--Normal"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Faffadde8-23b4-44e3-b5cf-012f385172c9%2FUntitled.png?width=576&amp;table=block&amp;id=2ea000ad-ed63-4d24-ad94-72aa030db9be"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Faffadde8-23b4-44e3-b5cf-012f385172c9%2FUntitled.png?width=576&amp;table=block&amp;id=2ea000ad-ed63-4d24-ad94-72aa030db9be" style="width:576px"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/891a7ccd242c4534b53dc73494aae3cc" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">我们需要某种树状结构来容纳嵌套菜单和菜单项，因此我们需要改用Composite模式来进行设计。</span></span></p></div><div id="https://www.notion.so/d810fd5d3953472a95d6d74e2b5aa609" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">代码</strong></span></span></p></div><div id="https://www.notion.so/956ba05fd72d4d248c8c69814fd710da" class="Image Image--Normal"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9cc27627-3278-4ab9-b0cb-f94643ec7d60%2FMain2TestComposite.jpg?width=480&amp;table=block&amp;id=956ba05f-d72d-4d24-8c8c-69814fd710da"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9cc27627-3278-4ab9-b0cb-f94643ec7d60%2FMain2TestComposite.jpg?width=480&amp;table=block&amp;id=956ba05f-d72d-4d24-8c8c-69814fd710da" style="width:480px"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/4b65e5d5267f475eb458785a58d8704c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">根据前面的模式结构，并结合上图:</span></span></p></div><div id="https://www.notion.so/269999b8f6a049dbac3c1b3f85c4489a" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">首先设计</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MenuComponent</code></span><span class="SemanticString">抽象构件类，里面定义组合菜单和菜单项的共有方法</span></span></p></div><pre id="https://www.notion.so/eea36ed0e31d4ed8b05cf7d16f526ef4" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package CompositeUtils;
+
+/**
+ * Component抽象类 为组合中的所有对象定义一个接口 组合菜单（CompositeMenu）和叶子菜单项（MenuItem）继承它
+ */
+public abstract class MenuComponent {
+  // =======菜单（组合节点）的方法=======
+  /**
+   * 增加菜单项
+   */
+  public void add(MenuComponent component) {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * 删除指定菜单项
+   */
+  public void remove(MenuComponent component) {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * 获取指定下标的菜单项
+   */
+  public MenuComponent get(int i) {
+    throw new UnsupportedOperationException();
+  }
+
+  // =======菜单项（叶子节点）的方法=======
+  /**
+   * 获取菜单项的名称
+   */
+  public String getName() {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * 获取菜单项的价格
+   */
+  public double getPrice() {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * 打印出菜单中的所有菜单项的信息，或者单个菜单项的信息 菜单和菜单项都要用到的方法
+   */
+  public void print() {
+
+  }
+}
+
+/**
+ * 同时将菜单项和菜单的方法定义了出来，继承时，菜单项和菜单只需要覆盖各自的实现即可。
+ * 这虽然违背了“单一责任”设计原则，但在具体场景下，为了需求和设计，需要采用折中的方式。
+ */</span></span></span></code></pre><div id="https://www.notion.so/6f0ef4aa696441a3bd55155e0dc87495" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">后设计</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CompositeMenu</code></span><span class="SemanticString">和</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MenuItem</code></span><span class="SemanticString">来继承</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MenuComponent</code></span><span class="SemanticString">抽象类，这里选用透明式组合方式，即，我们仅在树枝结构中实现管理子节点的相关方法。</span></span></p></div><pre id="https://www.notion.so/994e18c05ba84e548771ae8a44b2afb4" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package CompositeUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CompositeMenu extends MenuComponent {
+  List&lt;MenuComponent&gt; menuComponents = new ArrayList&lt;&gt;();
+  String name;
+  String description;
+
+  public CompositeMenu() {
+  }
+
+  public CompositeMenu(String name, String description) {
+    this.name = name;
+    this.description = description;
+  }
+
+  @Override
+  public void add(MenuComponent component) {
+    menuComponents.add(component);
+  }
+
+  @Override
+  public void remove(MenuComponent component) {
+    menuComponents.remove(component);
+  }
+
+  @Override
+  public MenuComponent get(int i) {
+    return menuComponents.get(i);
+  }
+
+  @Override
+  public void print() {
+    System.out.println(&quot;菜单名称：&quot; + getName() + &quot;(&quot; + getDescription() + &quot;)&quot;);
+    for (MenuComponent menuComponent : menuComponents) {
+      menuComponent.print();
+    }
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+}</span></span></span></code></pre><pre id="https://www.notion.so/49512a1fee8d48d29dc4c813381e7c57" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package CompositeUtils;
+
+public class MenuItem extends MenuComponent {
+  String name;
+  double price;
+
+  public MenuItem() {
+  }
+
+  public MenuItem(String name, double price) {
+    this.name = name;
+    this.price = price;
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public double getPrice() {
+    return price;
+  }
+
+  @Override
+  public void print() {
+    System.out.println(name + &quot;:&quot; + price);
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/9243b179df8a4b4cb9269e95b31a94e5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">最后定义服务员类</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Waitress</code></span><span class="SemanticString">类，并在</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">main</code></span><span class="SemanticString">中调用执行</span></span></p></div><pre id="https://www.notion.so/d4d1c42535d04050b2a4be193ea48275" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package CompositeUtils;
+
+public class Waitress {
+  MenuComponent allMenus;
+
+  public Waitress(MenuComponent allMenus) {
+    this.allMenus = allMenus;
+  }
+
+  /**
+   * 打印出菜单
+   */
+  public void printMenu() {
+    allMenus.print();
+  }
+}</span></span></span></code></pre><pre id="https://www.notion.so/06209f48d7704e8b86ec4b05d2377564" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>import CompositeUtils.MenuComponent;
+import CompositeUtils.MenuItem;
+import CompositeUtils.Waitress;
+import CompositeUtils.CompositeMenu;
+
+public class Main2TestComposite {
+  public static void main(String[]args) {
+      //建造烧饼菜单
+        MenuComponent pancakeMenu = new CompositeMenu(&quot;早餐&quot;,&quot;原烧饼店菜单&quot;);
+        pancakeMenu.add(new MenuItem(&quot;葱花饼&quot;, 3.5));
+        pancakeMenu.add(new MenuItem(&quot;牛肉饼&quot;, 6));
+        pancakeMenu.add(new MenuItem(&quot;猪肉饼&quot;, 5));
+        pancakeMenu.add(new MenuItem(&quot;韭菜饼&quot;, 2.5));
+        //建造正餐菜单子菜单-甜点菜单
+        MenuComponent dessertMenu = new CompositeMenu(&quot;甜点&quot;,&quot;正餐子菜单&quot;);
+        dessertMenu.add(new MenuItem(&quot;芒果牛奶冰&quot;, 8));
+        dessertMenu.add(new MenuItem(&quot;珍珠果豆花&quot;, 6));
+        dessertMenu.add(new MenuItem(&quot;榴莲蛋黄&quot;, 8));
+        //建造正餐菜单
+        MenuComponent dinnerMenu = new CompositeMenu(&quot;正餐&quot;,&quot;原饭店菜单&quot;);
+        dinnerMenu.add(new MenuItem(&quot;青椒肉丝炒饭&quot;, 12));
+        dinnerMenu.add(new MenuItem(&quot;番茄鸡蛋炒饭&quot;, 10));
+        dinnerMenu.add(new MenuItem(&quot;鱼香茄子炒饭&quot;, 11));
+        dinnerMenu.add(new MenuItem(&quot;土豆烧鸡炒饭&quot;, 12.5));
+        dinnerMenu.add(dessertMenu);
+        //建造主菜单
+        MenuComponent totalMenu = new CompositeMenu(&quot;菜单&quot;, &quot;总菜单&quot;);
+        totalMenu.add(pancakeMenu);
+        totalMenu.add(dinnerMenu);
+        //服务员打印菜单
+        Waitress waitress = new Waitress(totalMenu);
+        System.out.println(&quot;\ncomposite模式：\n&quot;);
+        waitress.printMenu();//递归调用菜单项和菜单内部的print，是内部迭代
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/26967ea1b18848ad94a9488ddc0f7110" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">运行结果</span></span></p></div><pre id="https://www.notion.so/b5f399c386f94f64a47d947ee53b63ca" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>composite模式：
+
+菜单名称：菜单(总菜单)
+菜单名称：早餐(原烧饼店菜单)
+葱花饼:3.5
+牛肉饼:6.0
+猪肉饼:5.0
+韭菜饼:2.5
+菜单名称：正餐(原饭店菜单)
+青椒肉丝炒饭:12.0
+番茄鸡蛋炒饭:10.0
+鱼香茄子炒饭:11.0
+土豆烧鸡炒饭:12.5
+菜单名称：甜点(正餐子菜单)
+芒果牛奶冰:8.0
+珍珠果豆花:6.0
+榴莲蛋黄:8.0</span></span></span></code></pre><h1 id="https://www.notion.so/b79333cf738244f0aaf23414e17ee732" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/b79333cf738244f0aaf23414e17ee732"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">与Iterator的结合</span></span></h1><div id="https://www.notion.so/6806eee8fc0943d1aed0ca6859a905db" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在新需求下，我们改用了Composite模式，然而问题来了：</span></span></p></div><ol class="NumberedListWrapper"><li id="https://www.notion.so/e9c5da67768740ff9efcb790c9531f0f" class="NumberedList" value="1"><span class="SemanticStringArray"><span class="SemanticString">iterator模式的好处就烟消云散了，因为在本例中，Composite模式下对菜单的存储是通过</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ArrayList</code></span><span class="SemanticString">这一数据结构进行的。</span></span></li><li id="https://www.notion.so/5c416a3ad9e34a3a8bb577ac0cbe9f90" class="NumberedList" value="2"><span class="SemanticStringArray"><span class="SemanticString">并且，例子中使用的迭代都是递归调用的菜单项和菜单内部迭代的方式，属于内部迭代，如果我们需要外部迭代该怎么办？</span></span></li></ol><div id="https://www.notion.so/b649f404970b4b63b5987b34099f8fc7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">首先我们来解决问题2：</span></span></p></div><div id="https://www.notion.so/a607677425a048e58ee5abdeaf10e70b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">加入有新需求：一位顾客只想看只含有蔬菜性质的菜单。如何实现？</span></span></p></div><div id="https://www.notion.so/b3e4bd0cab1542038d623bdaff40ce0d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/430a94d2f68b4c5abbe1ec0fe71a65bf" class="Image Image--Normal"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fac2f71db-03df-44f8-9f2f-dbd4d66065fe%2FMain2TestCombine.jpg?width=661&amp;table=block&amp;id=430a94d2-f68b-4c5a-bbe1-ec0fe71a65bf"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fac2f71db-03df-44f8-9f2f-dbd4d66065fe%2FMain2TestCombine.jpg?width=661&amp;table=block&amp;id=430a94d2-f68b-4c5a-bbe1-ec0fe71a65bf" style="width:661px"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/395082a4a5264693be9581f4fe24387d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">step1</strong></span><span class="SemanticString">: 由于</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MenuComponent</code></span><span class="SemanticString">抽象类中定义了所有对象的方法，我们现在该类中添加判断食品的方法，然后再在叶节点和树枝节点中进行重写</span></span></p></div><pre id="https://www.notion.so/3a2e91dcd789414893d5753626c8549c" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public abstract class MenuComponent {
+  // =======菜单项（叶子节点）的增加方法=======
+  /**
+   * 判断是否为蔬菜类食品
+   */
+  public boolean isVegetable() {
+    throw new UnsupportedOperationException();
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/110dd78120744e6a8a0b3bd3e54b4bf7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">step2-3</strong></span><span class="SemanticString">: 在菜单项</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MenuItem</code></span><span class="SemanticString">中重写相关方法，注意，可能还需要定义新的变量和构造函数</span></span></p></div><pre id="https://www.notion.so/30c0dd517cd34d72ab0730fc6f6465b4" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class MenuItem extends MenuComponent {
+
+  // 新增蔬菜类食品标志
+  boolean isVegetable;
+
+  public MenuItem(String name, double price) {
+    this.name = name;
+    this.price = price;
+    // 修改构造函数
+    this.isVegetable = false;
+  }
+
+  // 新增构造函数
+  public MenuItem(String name, double price, boolean isVegetable) {
+    this.name = name;
+    this.price = price;
+    this.isVegetable = isVegetable;
+  }
+
+  // =======菜单项（叶子节点）的增加方法=======
+  /**
+   * 重写抽象类的方法
+   */
+  @Override
+  public boolean isVegetable() {
+    return isVegetable;
+  }
+
+  public void setVegetable(boolean isVegetable) {
+    this.isVegetable = isVegetable;
+  }</span></span></span></code></pre><div id="https://www.notion.so/30d6839567034186ac9ac0bf2be9d232" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">step4</strong></span><span class="SemanticString">: 然后为了迭代组合中的每个对象，来调用</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">isVegetable()</code></span><span class="SemanticString">，我们需要设计一个新的组合菜单迭代器</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CompositeIterator</code></span><span class="SemanticString">。注意，这个迭代器中使用了递归的算法，可以递归的迭代树枝节点。</span></span></p></div><pre id="https://www.notion.so/bd64718646c342a2b82e906960c07eae" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package CompostiteWithItrUtils;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+import ItrUtils.MyIterator;
+
+/**
+ * 组合菜单迭代器
+ * 4.使用递归创建组合菜单的迭代器
+ */
+public class CompositeIterator implements MyIterator&lt;MenuComponent&gt; {
+  /** 迭代器栈，存储最近一次迭代的菜单的迭代器 */
+  Deque&lt;MyIterator&lt;MenuComponent&gt;&gt; stack = new ArrayDeque&lt;MyIterator&lt;MenuComponent&gt;&gt;();
+
+  public CompositeIterator() {
+  }
+
+  public CompositeIterator(MyIterator&lt;MenuComponent&gt; myIterator) {
+    // 初始化时中将组合菜单的总迭代器（即List&lt;MenuComponent&gt;的迭代器）放入栈
+    stack.push(myIterator);
+  }
+
+  @Override
+  public boolean hasNext() {
+    if (stack.isEmpty())
+      return false;
+    // 返回栈顶的迭代器
+    MyIterator&lt;MenuComponent&gt; myIterator = stack.peek();
+    // 如果该迭代器仍有元素可迭代，返回true
+    if (myIterator.hasNext()) {
+      return true;
+    }
+    // 如果迭代器元素都已迭代完，弹出栈，递归判断栈中下一个迭代器
+    else {
+      stack.pop();
+      return hasNext();
+    }
+  }
+
+  @Override
+  public MenuComponent next() {
+    // 如果没有元素可迭代，直接返回null
+    if (!hasNext())
+      return null;
+    // 有元素可迭代时，返回栈顶迭代器
+    MyIterator&lt;MenuComponent&gt; iterator = stack.peek();
+    // 取出迭代器中的下一个元素
+    MenuComponent component = iterator.next();
+    // 如果该元素为菜单，将子菜单的迭代器放入栈中。这样下一次执行next()方法，则迭代该子菜单了
+    if (component instanceof CompositeMenu) {
+      stack.push(component.createIterator());
+    }
+
+    return component;
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/a1f5b84ee79641c3a43f8af4218f507d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">step5-8</strong></span><span class="SemanticString">: 接着在</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MenuComponent</code></span><span class="SemanticString">抽象类中添加创建迭代器的抽象方法，并在叶节点和树枝节点中进行重写。注意：叶节点没有子节点，所有创建的迭代器为空，所以需要定义一个空迭代器。</span></span></p></div><pre id="https://www.notion.so/b90a08756c5445a581cbbab817661f8b" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public abstract class MenuComponent {
+   /**
+     * 创建迭代器
+     */
+    public abstract MyIterator&lt;MenuComponent&gt; createIterator();
+}</span></span></span></code></pre><div id="https://www.notion.so/120b6752028b479a8f9aa3e343072424" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">空迭代器的定义</span></span></p></div><pre id="https://www.notion.so/9e6dca0509214e6785c8412ca00de2c7" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>/**
+ * 空迭代器
+ */
+public class NullIterator implements MyIterator&lt;MenuComponent&gt; {
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public MenuComponent next() {
+        return null;
+    }
+}</span></span></span></code></pre><div id="https://www.notion.so/fc1962ca9dfe45fdbd6ac33ee0a65116" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">菜单项中重写</span></span></p></div><pre id="https://www.notion.so/faad7918a6764eca8a8124f257078a3d" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class MenuItem extends MenuComponent {
+  /**
+   * 菜单项创建迭代器
+   * @return NullIterator
+   */
+  @Override
+  public MyIterator&lt;MenuComponent&gt; createIterator() {
+    return new NullIterator();
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/c7f94f8a024a4c5abb09474e7d97430c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">组合菜单中重写</span></span></p></div><pre id="https://www.notion.so/ab0ddef512d34e07ba2e63c1a7846004" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class CompositeMenu extends MenuComponent {
+	/**
+   * 组合菜单创建迭代器
+   */
+      @Override
+    public MyIterator&lt;MenuComponent&gt; createIterator() {
+        var myIterator=new GetMyItrFromArrayList(menuComponents);
+        return new CompositeIterator(myIterator);
+    }
+}</span></span></span></code></pre><div id="https://www.notion.so/588bf64860c04c148d49d27804fd99a1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">这里的</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">GetMyItrFromArrayList</code></span><span class="SemanticString">类是从</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ArrayList</code></span><span class="SemanticString">中返回</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MyIterator</code></span><span class="SemanticString">类型的迭代器，类似iterator模式一文中</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">PancakeMenuIterator</code></span><span class="SemanticString">的操作（本质上相同）</span></span></p></div><pre id="https://www.notion.so/173a4e16a5f546e98befbea2be553952" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package CompostiteWithItrUtils;
+
+import java.util.ArrayList;
+import ItrUtils.MyIterator;
+/**
+ * 从ArrayList对象中获取MyIterator类型的迭代器
+ */
+public class GetMyItrFromArrayList implements MyIterator&lt;MenuComponent&gt;{
+  ArrayList&lt;MenuComponent&gt; menuItems;
+  int position = 0;
+
+  public GetMyItrFromArrayList(ArrayList&lt;MenuComponent&gt; menuItems) {
+    this.menuItems = menuItems;
+  }
+
+  @Override
+  public boolean hasNext() {
+    if (position &gt;= menuItems.size() || menuItems.get(position) == null)
+      return false;
+    return true;
+  }
+
+  @Override
+  public MenuComponent next() {
+    MenuComponent item = menuItems.get(position);
+    position += 1;
+    return item;
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/fdafeae9e8ee4b968d48035adf05031f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">step9: </strong></span><span class="SemanticString">在服务员类中添加新需求的业务处理函数</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">printVegetarianMenu()</code></span></span></p></div><pre id="https://www.notion.so/15e74ad9b631480bb45d331526877835" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class Waitress {
+  /**
+   * 打印蔬菜食品
+   */
+  public void printVegetarianMenu() {
+    MyIterator&lt;MenuComponent&gt; iterator = allMenus.createIterator();
+    while (iterator.hasNext()) {
+      MenuComponent component = iterator.next();
+      try {
+        if (component.isVegetable())
+          System.out.println(component.getName());
+      }
+      // 如果为组合菜单调用isVegetable方法，会直接抛出异常，这里会直接不处理
+      catch (UnsupportedOperationException e) {
+        ;
+      }
+    }
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/a66eb8b61b9649698290060132173209" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后再在</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">main</code></span><span class="SemanticString">函数中进行测试</span></span></p></div><pre id="https://www.notion.so/274850fc188f405786a20345d756e272" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class Main2TestCombine {
+      public static void main(String[] args) {
+        //建造烧饼菜单
+        MenuComponent pancakeMenu = new CompositeMenu(&quot;早餐&quot;,&quot;原烧饼店菜单&quot;);
+        pancakeMenu.add(new MenuItem(&quot;葱花饼&quot;, 3.5,true));
+        pancakeMenu.add(new MenuItem(&quot;牛肉饼&quot;, 6,false));
+        pancakeMenu.add(new MenuItem(&quot;猪肉饼&quot;, 5,false));
+        pancakeMenu.add(new MenuItem(&quot;韭菜饼&quot;, 2.5,true));
+        //建造正餐菜单子菜单-甜点菜单
+        MenuComponent dessertMenu = new CompositeMenu(&quot;甜点&quot;,&quot;正餐子菜单&quot;);
+        dessertMenu.add(new MenuItem(&quot;芒果牛奶冰&quot;, 8,false));
+        dessertMenu.add(new MenuItem(&quot;珍珠果豆花&quot;, 6,false));
+        dessertMenu.add(new MenuItem(&quot;榴莲蛋黄&quot;, 8,false));
+        //建造正餐菜单
+        MenuComponent dinnerMenu = new CompositeMenu(&quot;正餐&quot;,&quot;原饭店菜单&quot;);
+        dinnerMenu.add(new MenuItem(&quot;青椒肉丝炒饭&quot;, 12,false));
+        dinnerMenu.add(new MenuItem(&quot;番茄鸡蛋炒饭&quot;, 10,true));
+        dinnerMenu.add(new MenuItem(&quot;鱼香茄子炒饭&quot;, 11,false));
+        dinnerMenu.add(new MenuItem(&quot;土豆烧鸡炒饭&quot;, 12.5,false));
+        dinnerMenu.add(dessertMenu);
+        //建造主菜单
+        MenuComponent totalMenu = new CompositeMenu(&quot;菜单&quot;, &quot;总菜单&quot;);
+        totalMenu.add(pancakeMenu);
+        totalMenu.add(dinnerMenu);
+        //服务员打印菜单
+        Waitress waitress = new Waitress(totalMenu);
+        System.out.println(&quot;\ncomposite+iterator模式：\n&quot;);
+        // waitress.printMenu();
+        waitress.printVegetarianMenu();
+    }
+}</span></span></span></code></pre><div id="https://www.notion.so/060d79cf648d4e4388872f90960ec1ed" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">结果</span></span></p></div><pre id="https://www.notion.so/c953f7483fce44afa832492372c1906f" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>composite+iterator模式：
+
+葱花饼
+韭菜饼
+番茄鸡蛋炒饭</span></span></span></code></pre><div id="https://www.notion.so/1a98b31e029f4f3eb580649a5605e933" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后解决问题1：</span></span></p></div><div id="https://www.notion.so/9e550030c755497fa7aba67c67ebae7e" class="Image Image--PageWidth"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F47159b55-f3e3-4da8-a8b2-30ea3cd15d54%2FMain2TestFinal.jpg?width=935&amp;table=block&amp;id=9e550030-c755-497f-a7ab-a67c67ebae7e"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F47159b55-f3e3-4da8-a8b2-30ea3cd15d54%2FMain2TestFinal.jpg?width=935&amp;table=block&amp;id=9e550030-c755-497f-a7ab-a67c67ebae7e" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/e9d8afec0ca346d09a7e340bc8e7607a" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">注意到前面到例子中，创建组合菜单是通过新建</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CompositeMenu</code></span><span class="SemanticString">类，而在该类的内部是采用的</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ArrayList</code></span><span class="SemanticString">这一数据结构，而在iterator模式一文的例子中，午餐餐馆的菜单是通过数组实现的，为了继续使用数组实现，我们将</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CompositeMenu</code></span><span class="SemanticString">拷贝一份为</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CompositeMenu_ArrayVer</code></span><span class="SemanticString">，并修改相关实现细节</span></span></p></div><pre id="https://www.notion.so/f7319c03fcc84d8ab4dafe7eff35463e" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class CompositeMenu_ArrayVer extends MenuComponent {
+  MenuComponent[] menuComponents = new MenuComponent[20];
+  int numberOfItems = 0;
+  String name;
+  String description;
+
+  public CompositeMenu_ArrayVer() {
+  }
+
+  public CompositeMenu_ArrayVer(String name, String description) {
+    this.name = name;
+    this.description = description;
+  }
+
+  @Override
+  public void add(MenuComponent component) {
+    if (numberOfItems &gt;= menuComponents.length) {
+      System.out.println(&quot;菜单已满，不能再添加！&quot;);
+      return;
+    }
+    if (component instanceof MenuItem) {
+      var menuItem = new MenuItem(component.getName(), component.getPrice(), component.isVegetable());
+      menuComponents[numberOfItems++] =  menuItem;
+    }else{
+      menuComponents[numberOfItems++] =  component;
+    }
+  }
+
+  @Override
+  public void remove(MenuComponent component) {
+    // 这里对数组元素的删除相当于后一个覆盖前一个
+    for (int i = 0; i &lt; numberOfItems; i++) {
+      if (menuComponents[i].getName().equals(component.getName())) {
+        for (int j = i; j + 1 &lt; numberOfItems; j++) {
+          menuComponents[j] = menuComponents[j + 1];
+        }
+        menuComponents[--numberOfItems] = null;
+        break;
+      }
+    }
+  }
+
+  @Override
+  public MenuComponent get(int i) {
+    return menuComponents[i];
+  }
+
+  @Override
+  public void print() {
+    System.out.println(&quot;\n菜单名称：&quot; + getName() + &quot;(&quot; + getDescription() + &quot;)&quot;);
+    for (MenuComponent menuComponent : menuComponents) {
+      if(menuComponent==null)break;
+      menuComponent.print();
+    }
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * 组合菜单创建迭代器
+   */
+  @Override
+  public MyIterator&lt;MenuComponent&gt; createIterator() {
+    var myIterator = new GetMyItrFromArray(menuComponents);
+    return new CompositeIterator(myIterator);
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/e0b18425cfa94ed3801122dd875f9301" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">注意到</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CompositeMenu_ArrayVer</code></span><span class="SemanticString">中的</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">createIterator</code></span><span class="SemanticString">方法从数组对象中返回一个迭代器，因此参考iterator模式一文中的</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">PancakeMenuIterator</code></span><span class="SemanticString">，拷贝一份为</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">GetMyItrFromArray</code></span></span></p><div class="Text__Children"><pre id="https://www.notion.so/22ec594254b04a90b50abca2f3e737dc" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>/**
+ * 从对象数组中获取MyIterator类型的迭代器
+ */
+public class GetMyItrFromArray implements MyIterator&lt;MenuComponent&gt; {
+  MenuComponent[] menuComponents;
+  int position = 0;
+
+  public GetMyItrFromArray(MenuComponent[] menuComponents) {
+    this.menuComponents = menuComponents;
+  }
+
+  @Override
+  public boolean hasNext() {
+    if (position &gt;= menuComponents.length || menuComponents[position] == null)
+      return false;
+    return true;
+  }
+
+  @Override
+  public MenuComponent next() {
+    MenuComponent item = menuComponents[position];
+    position += 1;
+    return item;
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/a8f5c1296e47400caac1d019f809384f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">修改</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CompositeIterator</code></span><span class="SemanticString">对新的</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CompositeMenu_ArrayVer</code></span><span class="SemanticString">聚合对象做适配</span></span></p><div class="Text__Children"><pre id="https://www.notion.so/3171547ad4704e46b2bdb4a3150795c4" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class CompositeIterator implements MyIterator&lt;MenuComponent&gt; {
+  /** 迭代器栈，存储最近一次迭代的菜单的迭代器 */
+  Deque&lt;MyIterator&lt;MenuComponent&gt;&gt; stack = new ArrayDeque&lt;MyIterator&lt;MenuComponent&gt;&gt;();
+
+  public CompositeIterator() {
+  }
+
+  public CompositeIterator(MyIterator&lt;MenuComponent&gt; myIterator) {
+    // 初始化时中将组合菜单的总迭代器（即List&lt;MenuComponent&gt;的迭代器）放入栈
+    stack.push(myIterator);
+  }
+
+  @Override
+  public boolean hasNext() {
+    if (stack.isEmpty())
+      return false;
+    // 返回栈顶的迭代器
+    MyIterator&lt;MenuComponent&gt; myIterator = stack.peek();
+    // 如果该迭代器仍有元素可迭代，返回true
+    if (myIterator.hasNext()) {
+      return true;
+    } else {// 如果迭代器元素都已迭代完，弹出栈，递归判断栈中下一个迭代器
+      stack.pop();
+      return hasNext();
+    }
+  }
+
+  @Override
+  public MenuComponent next() {
+    // 如果没有元素可迭代，直接返回null
+    if (!hasNext())
+      return null;
+    // 有元素可迭代时，返回栈顶迭代器
+    MyIterator&lt;MenuComponent&gt; iterator = stack.peek();
+    // 取出迭代器中的下一个元素
+    MenuComponent component = iterator.next();
+    // 如果该元素为菜单，将子菜单的迭代器放入栈中。这样下一次执行next()方法，则迭代该子菜单了
+    if (component instanceof CompositeMenu || component instanceof CompositeMenu_ArrayVer) {
+      stack.push(component.createIterator());
+    }
+
+    return component;
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/5a87dfb54a41478088b95bc5346644c0" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">对</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Waitress</code></span><span class="SemanticString">类的</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">printVegetarinMenu()</code></span><span class="SemanticString">方法适当修改</span></span></p><div class="Text__Children"><pre id="https://www.notion.so/ada06d37bc6443129a1db12d3ed4134c" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class Waitress {
+  /**
+   * 打印蔬菜食品
+   */
+  public HashMap&lt;String,Double&gt; getVegetarianMenu(){
+    var hashMap=new HashMap&lt;String,Double&gt;();
+    for(int i=0;i&lt;allMenus.getLength();i++){
+      var menuComponent=allMenus.get(i);
+      var iterator=menuComponent.createIterator();
+      while(iterator.hasNext()){
+        var component=iterator.next();
+        if(component.isVegetable()){
+          hashMap.put(component.getName(),component.getPrice());
+        }
+      }
+    }
+    return hashMap;
+  }
+  public void printVegetarianMenu() {
+    var hashMap=getVegetarianMenu();
+    for(var ele:hashMap.entrySet()){
+      System.out.println(ele.getKey()+&quot; : &quot;+ele.getValue());
+    }
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/c1e568fdfb9e497494980f49978d32ee" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后在</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">main</code></span><span class="SemanticString">函数中进行测试</span></span></p><div class="Text__Children"><div id="https://www.notion.so/1b9746ea3bfc4dfd9b8e78996de624f6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">层次结构：</span></span></p></div><div id="https://www.notion.so/54ba4bc959fe458e864b3d78c0525975" class="Image Image--PageWidth"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F61563205-5185-4e67-84d2-e7436ead1af6%2FFlowchartDiagram1.jpg?width=1081&amp;table=block&amp;id=54ba4bc9-59fe-458e-864b-3d78c0525975"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F61563205-5185-4e67-84d2-e7436ead1af6%2FFlowchartDiagram1.jpg?width=1081&amp;table=block&amp;id=54ba4bc9-59fe-458e-864b-3d78c0525975" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/f16d99eecad8455b8e7a23b07307fb3f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">代码</span></span></p></div><pre id="https://www.notion.so/5dc9215536a743e6a6ff8779ed7b2268" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class Main2TestFinal {
+  public static void main(String[] args) {
+    // 建造烧饼菜单
+    MenuComponent pancakeMenu = new CompositeMenu(&quot;早餐&quot;, &quot;原烧饼店菜单&quot;);
+    pancakeMenu.add(new MenuItem(&quot;葱花饼&quot;, 3.5, true));
+    pancakeMenu.add(new MenuItem(&quot;牛肉饼&quot;, 6, false));
+    pancakeMenu.add(new MenuItem(&quot;猪肉饼&quot;, 5, false));
+    pancakeMenu.add(new MenuItem(&quot;韭菜饼&quot;, 2.5, true));
+    //饮料菜单
+    MenuComponent drinkMenu=new CompositeMenu_ArrayVer(&quot;饮料&quot;,&quot;正餐子菜单&quot;);
+    drinkMenu.add(new MenuItem(&quot;冰可乐&quot;,3));
+    drinkMenu.add(new MenuItem(&quot;冰雪碧&quot;,3));
+    // 建造正餐菜单子菜单-甜点菜单
+    MenuComponent dessertMenu = new CompositeMenu_ArrayVer(&quot;甜点&quot;, &quot;正餐子菜单&quot;);
+    dessertMenu.add(new MenuItem(&quot;芒果牛奶冰&quot;, 8, false));
+    dessertMenu.add(new MenuItem(&quot;珍珠果豆花&quot;, 6, false));
+    dessertMenu.add(new MenuItem(&quot;榴莲蛋黄&quot;, 8, false));
+    // 建造正餐菜单
+    MenuComponent dinnerMenu = new CompositeMenu_ArrayVer(&quot;正餐&quot;, &quot;原饭店菜单&quot;);
+    dinnerMenu.add(new MenuItem(&quot;青椒肉丝炒饭&quot;, 12, false));
+    dinnerMenu.add(new MenuItem(&quot;番茄鸡蛋炒饭&quot;, 10, true));
+    dinnerMenu.add(new MenuItem(&quot;鱼香茄子炒饭&quot;, 11, false));
+    dinnerMenu.add(new MenuItem(&quot;土豆烧鸡炒饭&quot;, 12.5, false));
+    dinnerMenu.add(drinkMenu);
+    dinnerMenu.add(dessertMenu);
+    // 建造主菜单
+    MenuComponent totalMenu = new CompositeMenu(&quot;菜单&quot;, &quot;总菜单&quot;);
+    totalMenu.add(pancakeMenu);
+    totalMenu.add(dinnerMenu);
+    // 服务员打印菜单
+    Waitress waitress = new Waitress(totalMenu);
+    System.out.println(&quot;\ncomposite+iterator模式：\n&quot;);
+    waitress.printMenu();
+    System.out.println(&quot;\n蔬菜菜单：&quot;);
+    waitress.printVegetarianMenu();
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/b04748a0cc3f4057867de9c1121b518a" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">结果</span></span></p></div><pre id="https://www.notion.so/f8c724b4c30c42fcba7af42c9068f1d4" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>composite+iterator模式：
+
+菜单名称：菜单(总菜单)
+
+菜单名称：早餐(原烧饼店菜单)
+葱花饼:3.5
+牛肉饼:6.0
+猪肉饼:5.0
+韭菜饼:2.5
+
+菜单名称：正餐(原饭店菜单)
+青椒肉丝炒饭:12.0
+番茄鸡蛋炒饭:10.0
+鱼香茄子炒饭:11.0
+土豆烧鸡炒饭:12.5
+
+菜单名称：饮料(正餐子菜单)
+冰可乐:3.0
+冰雪碧:3.0
+
+菜单名称：甜点(正餐子菜单)
+芒果牛奶冰:8.0
+珍珠果豆花:6.0
+榴莲蛋黄:8.0
+
+蔬菜菜单：
+番茄鸡蛋炒饭 : 10.0
+韭菜饼 : 2.5
+葱花饼 : 3.5</span></span></span></code></pre></div></div><div id="https://www.notion.so/6e54d850535949f9bf561cab1910025f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">通过上面，就完成了composite模式与iterator模式的结合。</span></span></p></div><div id="https://www.notion.so/99a4760aff1249f6a71dffc2863d0826" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/936a62da7c0b49f09f88491679a6c020" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">参考文章：</span></span></p></div><div id="https://www.notion.so/db00c89891f84fb6b99d2566a39d1daf" class="Bookmark"><a href="https://blog.csdn.net/z55887/article/details/70548861"><h5 class="Bookmark__Title">Head First 设计模式（九）迭代器与组合模式_Java_大树的学习之路-CSDN博客</h5><p class="Bookmark__Desc">迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示 迭代器模式我们很熟悉，其实就是Java中集合的迭代原理，如果你研究过集合的源码，就会很容易理解这个模式。 现在有两家餐厅：煎饼店和饭店，它们想要合并。两家店的菜单需要统一起来，以便服务员给客户看。 但此时有一个问题，煎饼店和饭店的菜单，实现是不一样的： 从代码我们可以看出，两家店的菜单一个是数组实现，一个是集合实现。 这时，我们想要服务员提供新的菜单时，得分别针对两种不同的底层实现，进行不同的迭代： /** * 打印出菜单 */ public void printMenu() { ArrayList pMenuItems = pancakeMenu.menuItems; for (int i = 0; i &lt; pMenuItems.size(); i++) { MenuItem menuItem = pMenuItems.get(i); System.out.println(menuItem.getName()+&quot;:&quot;+menuItem.getPrice()); } MenuItem[] dMenuItems = dinnerMenu.menuItems; for (int i = 0,n = dMenuItems.length; i &lt; n; i++) {</p><p class="Bookmark__Link">https://blog.csdn.net/z55887/article/details/70548861</p></a></div><div id="https://www.notion.so/04582ef5f714432c918f705b82d6d200" class="Bookmark"><a href="https://www.cnblogs.com/wuqinglong/p/12425411.html"><h5 class="Bookmark__Title">https://www.cnblogs.com/wuqinglong/p/12425411.html</h5><p class="Bookmark__Link">https://www.cnblogs.com/wuqinglong/p/12425411.html</p></a></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Iterator模式">
+    <meta name="description" content="提供一种对集合中的元素进行有序遍历的方式，而不关心不暴露集合的底层结构...">
+  <meta property="og:description" content="提供一种对集合中的元素进行有序遍历的方式，而不关心不暴露集合的底层结构...">
+    <meta property="og:type" content="blog">
+  <title>Iterator模式</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Title">Iterator模式</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Sat, May 16, 2020</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--default">
+        <a href="tag/DesignPattern.html">DesignPattern</a>
+      </span>
+            <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--orange">
+        <a href="tag/Java.html">Java</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/703db71306104bfbae3b315814e97022" class="PageRoot"><ul id="https://www.notion.so/83fd881c0cfa4ef0a57d31f647a1c571" class="ColorfulBlock ColorfulBlock--ColorGray TableOfContents"><li class="TableOfContents__Item"><a href="#https://www.notion.so/6c5463c4cb1343ca8e95c4c7d3b7c497"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">目的</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/4330def59ce042be90df7e219a956a2d"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">好处</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/29ede9ac72cb47fbba0700d5030cfd14"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">适用范围</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/3bd61d3119dd4c8d9aa7a7e7b04666b0"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">模式结构</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/78616a7fac844e3cada1d935a65dc64e"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">评价</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/88d0f37bfabe42a8902108a94e8bdbf1"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">联系</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/db68a58f69b649a49d72982b36df9aba"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">实现</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/493b066a1cae413fac3e3e39b94f19bf"><div style="margin-left:24px"><span class="SemanticStringArray"><span class="SemanticString">关注的问题</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/85d968b1e6f14a98bc9a0e315dd4750d"><div style="margin-left:24px"><span class="SemanticStringArray"><span class="SemanticString">示例</span></span></div></a></li></ul><h1 id="https://www.notion.so/6c5463c4cb1343ca8e95c4c7d3b7c497" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/6c5463c4cb1343ca8e95c4c7d3b7c497"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">目的</span></span></h1><div id="https://www.notion.so/4b5bb12f448a453e9d50766080913d42" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">提供一种对集合中的元素进行有序遍历的方式，而不关心不暴露集合的底层结构。</span></span></p></div><h1 id="https://www.notion.so/4330def59ce042be90df7e219a956a2d" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/4330def59ce042be90df7e219a956a2d"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">好处</span></span></h1><ol class="NumberedListWrapper"><li id="https://www.notion.so/a8eb2aa4cf254227990c130d4009b4f1" class="NumberedList" value="1"><span class="SemanticStringArray"><span class="SemanticString">正如目的中所谈到，提供一种不关心不暴露底层数据结构的遍历方式</span></span></li><li id="https://www.notion.so/6be869ca19f34a8eb6c6e129b3aa3f59" class="NumberedList" value="2"><span class="SemanticStringArray"><span class="SemanticString">将遍历机制和集合的结构分离，可以允许我们定义不同迭代策略的迭代器，而不是在内部的数据结构中进行遍历。</span></span></li></ol><h1 id="https://www.notion.so/29ede9ac72cb47fbba0700d5030cfd14" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/29ede9ac72cb47fbba0700d5030cfd14"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">适用范围</span></span></h1><ul class="BulletedListWrapper"><li id="https://www.notion.so/b829c6f013a14675ace244fe4c1a32cb" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">在不暴露内部结构的情况下，对聚合对象进行迭代访问</span></span></li><li id="https://www.notion.so/5da1e67cafc94a51bbcf688a1471e54d" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">对聚合对象的多次遍历有需求</span></span></li><li id="https://www.notion.so/ae9fd9cea5f84e25b581bb5907ab74d8" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">提供用于遍历不同聚合结构的统一接口（即支持多态迭代）</span></span></li></ul><h1 id="https://www.notion.so/3bd61d3119dd4c8d9aa7a7e7b04666b0" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/3bd61d3119dd4c8d9aa7a7e7b04666b0"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">模式结构</span></span></h1><div id="https://www.notion.so/8349ecbd7aea46e4ada693e5668480ee" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/403dd062a52e45de9451df8676aa34e4" class="Image Image--Normal"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd9089c2e-ae78-4afb-a278-05df469eb46a%2FUntitled.png?width=480&amp;table=block&amp;id=403dd062-a52e-45de-9451-df8676aa34e4"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd9089c2e-ae78-4afb-a278-05df469eb46a%2FUntitled.png?width=480&amp;table=block&amp;id=403dd062-a52e-45de-9451-df8676aa34e4" style="width:480px"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><h1 id="https://www.notion.so/78616a7fac844e3cada1d935a65dc64e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/78616a7fac844e3cada1d935a65dc64e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">评价</span></span></h1><ul class="BulletedListWrapper"><li id="https://www.notion.so/c4544985346b4871bb6d6bea9c82b5e1" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">对内部结构不同的聚合对象的遍历进行很好的支持</span></span></li><li id="https://www.notion.so/d92f7fe23e5546a7848da30229bb29b2" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">iterator简化了聚合对象遍历接口</span></span></li><li id="https://www.notion.so/1295923a44734bccab446195467854b4" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">对聚合对象的多次遍历进行很好的支持</span></span></li></ul><h1 id="https://www.notion.so/88d0f37bfabe42a8902108a94e8bdbf1" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/88d0f37bfabe42a8902108a94e8bdbf1"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">联系</span></span></h1><ul class="BulletedListWrapper"><li id="https://www.notion.so/83ec47f43b1c4e539de56a2d1edaf542" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Composite模式：iterator模式常被用于composite模式的符合结构</span></span></li><li id="https://www.notion.so/6cba9d3b5e994d1aa1ff36f6be65343e" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Factory模式：多态迭代器依赖于工厂方法来实例化适当的Iterator子类。</span></span></li></ul><h1 id="https://www.notion.so/db68a58f69b649a49d72982b36df9aba" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/db68a58f69b649a49d72982b36df9aba"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">实现</span></span></h1><h2 id="https://www.notion.so/493b066a1cae413fac3e3e39b94f19bf" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/493b066a1cae413fac3e3e39b94f19bf"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">关注的问题</span></span></h2><div id="https://www.notion.so/4989a7c49bdd4add81ef641d0a1e7f9a" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">谁来控制集合的迭代？</strong></span><span class="SemanticString">内部迭代器和外部迭代器</span></span></p></div><div id="https://www.notion.so/035d21a526914113a91c88ca3dfd14de" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">怎么定义迭代算法？</strong></span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/f5df76bd69134bcd98eb1ef7a6a03a2f" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Aggregate本身定义算法——Cursor mode光标模式</span></span></li><li id="https://www.notion.so/a1073d9d82c64662898e38856e724254" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">iterator定义算法——iterator如何访问数据</span></span></li></ul><div id="https://www.notion.so/bf784e3400ef4d409fa7af9ac803210f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">迭代器有哪些常见操作？</strong></span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">First</code></span><span class="SemanticString">,</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Next</code></span><span class="SemanticString">,</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">hasNext</code></span><span class="SemanticString">,</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">IsDone</code></span><span class="SemanticString">,</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">CurrentItem</code></span></span></p></div><div id="https://www.notion.so/55d6a91a866b43f5a4231d2adb67e7d3" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">其他：</strong></span><span class="SemanticString">实现多态迭代器，空迭代器</span></span></p></div><h2 id="https://www.notion.so/85d968b1e6f14a98bc9a0e315dd4750d" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/85d968b1e6f14a98bc9a0e315dd4750d"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">示例</span></span></h2><div id="https://www.notion.so/092a0359f88c4d399369bfad5bf51e6e" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">场景</strong></span></span></p></div><div id="https://www.notion.so/cc3a9bd20328426395149f56f73f3703" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">现在有两家餐厅：煎饼店和午餐饭店，它们想要合并。两家店的菜单需要统一起来，以便服务员给客户看。</span></span></p></div><div id="https://www.notion.so/dc79019024724df29f7680ca30d8d3fa" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">但问题是：两家饭店菜单实现方式不一样，也即数据结构不一样，一家是通过数组实现的，另一家是动态数组实现的。</span></span></p></div><div id="https://www.notion.so/09b556417f794f018438b984dff891fa" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">如果服务员为顾客提供新菜单是，得分别针对不同数据结构，在底层实现不同的迭代。</span></span></p></div><div id="https://www.notion.so/c07d91bf4c2f4ec291942fca98d917da" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">代码一</strong></span></span></p></div><div id="https://www.notion.so/2cc0ad590e2d4cc98b61eb84dcb46f8d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MenuItem.java</code></span></span></p><div class="Text__Children"><pre id="https://www.notion.so/675bef81f1d64f47b2629ceae5e33b3d" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>/**
+ * 菜单项
+ */
+public class MenuItem {
+  String name;
+  double price;
+
+  public MenuItem() {
+  }
+
+  public MenuItem(String name, double price) {
+    this.name = name;
+    this.price = price;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/a97863ed803c49dfa4afc4b786ad2618" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">PancakeMenu.java</code></span></span></p><div class="Text__Children"><pre id="https://www.notion.so/312e87d4d597406085d82bfd7078a564" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>import java.util.ArrayList;
+
+/**
+ * 煎饼菜单
+ */
+public class PancakeMenu {
+  ArrayList&lt;MenuItem&gt; menuItems = new ArrayList&lt;&gt;();
+
+  public void addItem(String name, double price) {
+    MenuItem menuItem = new MenuItem(name, price);
+    menuItems.add(menuItem);
+  }
+
+  public PancakeMenu() {
+    initItems();
+  }
+
+  public void initItems() {
+    addItem(&quot;葱花饼&quot;, 3.5);
+    addItem(&quot;牛肉饼&quot;, 6);
+    addItem(&quot;猪肉饼&quot;, 5);
+    addItem(&quot;韭菜饼&quot;, 2.5);
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/685928b846ea4005a676a5dc351aa97d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">DinnerMenu.java</code></span></span></p><div class="Text__Children"><pre id="https://www.notion.so/2d2ce995b3044d2290a4617cd59533f8" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>import java.util.Iterator;
+
+/**
+ * 午餐菜单
+ */
+public class DinnerMenu {
+  MenuItem[] menuItems = new MenuItem[20];
+  int numberOfItems = 0;
+
+  public DinnerMenu() {
+    initItems();
+  }
+
+  public void addItem(String name, double price) {
+    MenuItem menuItem = new MenuItem(name, price);
+    if (numberOfItems &gt;= menuItems.length) {
+      System.out.println(&quot;菜单已满，不能再添加！&quot;);
+      return;
+    }
+    menuItems[numberOfItems] = menuItem;
+    numberOfItems++;
+  }
+
+  public void initItems() {
+    addItem(&quot;青椒肉丝炒饭&quot;, 12);
+    addItem(&quot;番茄鸡蛋炒饭&quot;, 10);
+    addItem(&quot;鱼香茄子炒饭&quot;, 11);
+    addItem(&quot;土豆烧鸡炒饭&quot;, 12.5);
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/feb93ff508124e2ba9a9f5de5d6a9fe7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Waitress.java</code></span></span></p><div class="Text__Children"><pre id="https://www.notion.so/c3c0788b67224828891ea75efdd2458d" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>import java.util.ArrayList;
+
+public class Waitress {
+  PancakeMenu pancakeMenu = new PancakeMenu();
+  DinnerMenu dinnerMenu = new DinnerMenu();
+
+  /**
+   * 打印出菜单
+   */
+  public void printMenu() {
+    ArrayList&lt;MenuItem&gt; pMenuItems = pancakeMenu.menuItems;
+    for (int i = 0; i &lt; pMenuItems.size(); i++) {
+      MenuItem menuItem = pMenuItems.get(i);
+      System.out.println(menuItem.getName() + &quot;:&quot; + menuItem.getPrice());
+    }
+
+    MenuItem[] dMenuItems = dinnerMenu.menuItems;
+    for (int i = 0, n = dMenuItems.length; i &lt; n; i++) {
+      MenuItem menuItem = dMenuItems[i];
+      if (menuItem == null)
+        break;
+      System.out.println(menuItem.getName() + &quot;:&quot; + menuItem.getPrice());
+    }
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/72796ed90f0f454fabb7c80cbb7f4ad9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Main.java</code></span></span></p><div class="Text__Children"><pre id="https://www.notion.so/50bb917aabdc43e7b2373c3daee6b519" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>public class Main {
+  public static void main(String[] args) {
+    var waitress=new Waitress();
+    waitress.printMenu();
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/b0dfeeb9bbe1483a90c9c83597a7b33f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/90b5f715c1684af595d83afc39b8007b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">分析一</strong></span></span></p></div><div id="https://www.notion.so/3e4ab996888f444c98316f1c5452a142" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">代码一的问题在于：</span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/edb58f7c9fff4b6491fcaa1936bbc666" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Waitress</code></span><span class="SemanticString">类暴露了菜单的底层结构</span></span></li><li id="https://www.notion.so/3153ab1f5bfc41cd90cca61069959f62" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">扩展性差，如果新加盟了一家咖啡馆，菜单实现为</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">HashMap</code></span><span class="SemanticString">，那么又得新增迭代代码</span></span></li><li id="https://www.notion.so/cd0b177782ec480faf225f37994dacfb" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">迭代部分大同小异，代码冗余。</span></span></li></ul><div id="https://www.notion.so/82f52453015f47dab8747317b7a25a48" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/e8f7a49b653a4928b0d1895bfa11dc82" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">改进</strong></span></span></p></div><div id="https://www.notion.so/916d26c297e24192af4b68fe1cb5bd81" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">采用iterator设计模式，下图为该模式的结构：</span></span></p></div><div id="https://www.notion.so/45bf024fd5974999aa11662c9fbf5f1e" class="Image Image--Normal"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F75569866-2bc9-41f1-90a9-07cc1cf832b3%2FUntitled.png?width=576&amp;table=block&amp;id=45bf024f-d597-4999-aa11-662c9fbf5f1e"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F75569866-2bc9-41f1-90a9-07cc1cf832b3%2FUntitled.png?width=576&amp;table=block&amp;id=45bf024f-d597-4999-aa11-662c9fbf5f1e" style="width:576px"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/75b18c4bf3294fbea9d8c679df4d9277" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">迭代动作被封装成了一个接口</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Iterator</code></span><span class="SemanticString">，每一种聚合（也就是不同底层实现的集合），都对应了一种具体的迭代器</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ConcreteIterator</code></span><span class="SemanticString">。</span></span></p></div><div id="https://www.notion.so/fa09ba995cdd4819af9fd6653ada0eba" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/138f8fc7984b4f3d8b055427d2b88d9d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">代码二</strong></span></span></p></div><div id="https://www.notion.so/2425395430ac4176b177e078ee5b72d5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">创建基本的菜单项类</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MenuItem</code></span><span class="SemanticString">，包含了各种菜单的共有属性和方法</span></span></p><div class="Text__Children"><pre id="https://www.notion.so/1b42b69b0cd3422cb9dabaa3e9acce3f" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package ItrUtils;
+
+/**
+ * 菜单项
+ */
+public class MenuItem {
+  String name;
+  double price;
+
+  public MenuItem() {
+  }
+
+  public MenuItem(String name, double price) {
+    this.name = name;
+    this.price = price;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/eea331d07e714143a524c48128c43181" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">自定义迭代器接口</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">MyIterator.java</code></span><span class="SemanticString">，有</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">hasNext</code></span><span class="SemanticString">和</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">next</code></span><span class="SemanticString">两种方法</span></span></p><div class="Text__Children"><pre id="https://www.notion.so/5913ed1f64d04fce9b2f997ed91c6275" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package ItrUtils;
+
+/**
+ * 自定义迭代器接口
+ * @param &lt;E&gt;
+ */
+public interface MyIterator&lt;E&gt; {
+    public boolean hasNext();
+    public E next();
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/92395c7a858849f9acc9ed3bc7d67c47" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">实现具体的迭代器接口</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">PancakeMenuIterator.java</code></span><span class="SemanticString">以及</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">DinnerMenuIterator.java</code></span><span class="SemanticString">，其中实现的方法依赖于聚合对象的数据结构</span></span></p><div class="Text__Children"><pre id="https://www.notion.so/09e236a876584c73962eec1454d6820d" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package ItrUtils;
+
+import java.util.ArrayList;
+
+/**
+ * 煎饼菜单迭代器
+ */
+public class PancakeMenuIterator implements MyIterator&lt;MenuItem&gt; {
+  ArrayList&lt;MenuItem&gt; menuItems;
+  int position = 0;
+
+  public PancakeMenuIterator(ArrayList&lt;MenuItem&gt; menuItems) {
+    this.menuItems = menuItems;
+  }
+
+  @Override
+  public boolean hasNext() {
+    if (position &gt;= menuItems.size() || menuItems.get(position) == null)
+      return false;
+    return true;
+  }
+
+  @Override
+  public MenuItem next() {
+    MenuItem item = menuItems.get(position);
+    position += 1;
+    return item;
+  }
+}</span></span></span></code></pre><pre id="https://www.notion.so/cb1c27fc574f4b0abe753a471cd356be" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package ItrUtils;
+
+/**
+ * 饭店菜单迭代器
+ */
+public class DinnerMenuIterator implements MyIterator&lt;MenuItem&gt; {
+  MenuItem[] menuItems;
+  int position = 0;
+
+  public DinnerMenuIterator(MenuItem[] menuItems) {
+    this.menuItems = menuItems;
+  }
+
+  @Override
+  public boolean hasNext() {
+    if (position &gt;= menuItems.length || menuItems[position] == null)
+      return false;
+    return true;
+  }
+
+  @Override
+  public MenuItem next() {
+    MenuItem item = menuItems[position];
+    position += 1;
+    return item;
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/b36f22717a9e4f9890da97cb270cbd23" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></div></div><div id="https://www.notion.so/63f26e0a9d4e4716bf0201dff0c0ff6b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">实现具体聚合（某一对象集合）类并在其中实现创建迭代器的方法，即分别创建</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">DinnerMenu</code></span><span class="SemanticString">和</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">PancakeMenu</code></span><span class="SemanticString">类</span></span></p><div class="Text__Children"><pre id="https://www.notion.so/028e6398a29b40a689b1e8084f2c7ab4" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package ItrUtils;
+
+/**
+ * 午餐菜单
+ */
+public class DinnerMenu {
+  MenuItem[] menuItems = new MenuItem[20];
+  int numberOfItems = 0;
+
+  public DinnerMenu() {
+    initItems();
+  }
+
+  public void addItem(String name, double price) {
+    MenuItem menuItem = new MenuItem(name, price);
+    if (numberOfItems &gt;= menuItems.length) {
+      System.out.println(&quot;菜单已满，不能再添加！&quot;);
+      return;
+    }
+    menuItems[numberOfItems] = menuItem;
+    numberOfItems++;
+  }
+
+  public MyIterator&lt;MenuItem&gt; createIterator() {
+    return new DinnerMenuIterator(menuItems);
+  }
+
+  public void initItems() {
+    addItem(&quot;青椒肉丝炒饭&quot;, 12);
+    addItem(&quot;番茄鸡蛋炒饭&quot;, 10);
+    addItem(&quot;鱼香茄子炒饭&quot;, 11);
+    addItem(&quot;土豆烧鸡炒饭&quot;, 12.5);
+  }
+}</span></span></span></code></pre><pre id="https://www.notion.so/699a18dd4b0c42629effb15423491026" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package ItrUtils;
+
+import java.util.ArrayList;
+
+/**
+ * 煎饼菜单
+ */
+public class PancakeMenu {
+  ArrayList&lt;MenuItem&gt; menuItems = new ArrayList&lt;&gt;();
+
+  public void addItem(String name, double price) {
+    MenuItem menuItem = new MenuItem(name, price);
+    menuItems.add(menuItem);
+  }
+
+  public PancakeMenu() {
+    initItems();
+  }
+
+  public void initItems() {
+    addItem(&quot;葱花饼&quot;, 3.5);
+    addItem(&quot;牛肉饼&quot;, 6);
+    addItem(&quot;猪肉饼&quot;, 5);
+    addItem(&quot;韭菜饼&quot;, 2.5);
+  }
+
+  /**
+   * 创建自己的迭代器
+   */
+  public MyIterator&lt;MenuItem&gt; createIterator() {
+    return new PancakeMenuIterator(menuItems);
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/8f9460fc9e5b46b99dde69858f500103" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">创建服务员类</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Waitress</code></span><span class="SemanticString">，现在的服务员，不需要清楚菜单的具体设计，打印总菜单时，只需要调用各自菜单的迭代器即可。而且即使扩展增加新的菜单时，也更加容易</span></span></p><div class="Text__Children"><pre id="https://www.notion.so/27f6b8c1ebbb4c4aaa7991dbcf395806" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>package ItrUtils;
+
+/**
+ * 服务员类
+ */
+public class Waitress {
+  PancakeMenu pancakeMenu = new PancakeMenu();
+  DinnerMenu dinnerMenu = new DinnerMenu();
+
+  /**
+   * 打印出菜单
+   */
+  public void printMenu() {
+    MyIterator&lt;MenuItem&gt; myIterator = pancakeMenu.createIterator();
+    printMenu(myIterator);
+    myIterator = dinnerMenu.createIterator();
+    printMenu(myIterator);
+  }
+
+  private void printMenu(MyIterator&lt;MenuItem&gt; myIterator) {
+    while (myIterator.hasNext()) {
+      MenuItem menuItem = myIterator.next();
+      System.out.println(menuItem.getName() + &quot;:&quot; + menuItem.getPrice());
+    }
+  }
+}</span></span></span></code></pre></div></div><div id="https://www.notion.so/f611364286b54b9694634904ed2c6e7b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">main</code></span><span class="SemanticString">函数中运行</span></span></p><div class="Text__Children"><pre id="https://www.notion.so/20c8b53fb39a483e96962966fa3ed814" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>import ItrUtils.Waitress;
+
+public class Main2TestItreator {
+  public static void main(String []args) {
+    Waitress waitress=new Waitress();
+    System.out.println(&quot;\niterator模式：\n&quot;);
+    waitress.printMenu();
+  }
+}</span></span></span></code></pre><div id="https://www.notion.so/42e80ef212ec4647a86485b375397567" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">结果：</span></span></p></div><pre id="https://www.notion.so/07cb738cb8ff47718523b6ec572c215c" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>iterator模式：
+
+葱花饼:3.5
+牛肉饼:6.0
+猪肉饼:5.0
+韭菜饼:2.5
+青椒肉丝炒饭:12.0
+番茄鸡蛋炒饭:10.0
+鱼香茄子炒饭:11.0
+土豆烧鸡炒饭:12.5</span></span></span></code></pre></div></div><div id="https://www.notion.so/97b448380b0f4f6e972165cd15bcceb3" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/7ed616402e374091a2046e93e4f645ab" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">分析二</strong></span></span></p></div><div id="https://www.notion.so/115ca02a98a946ce88364b239b092882" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">通过上面的代码，可看到，迭代器模式能够不暴露聚合内部的具体实现，</span><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">而且也让聚合任务减轻，把“游走”的任务放在了迭代器上，简化了聚合的接口和实现，也让任务各得其所</strong></span><span class="SemanticString">。</span></span></p></div><div id="https://www.notion.so/e430aff1136742428463e57cd240feb6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">加粗部分就是</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">单一责任原则</code></span><span class="SemanticString">（一个类应该只有一个引起变化的原因）的体现。</span></span></p></div><div id="https://www.notion.so/fa2fac6c15e74db0aec8555b268a9088" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">之所以我们要让一个类只有一个改变的原因，在于：我们需要避免类的改变，而类的责任越多时，它改变的机率就越大。而且，当类真的改变时，两个责任的代码都可能受到影响。</span></span></p></div><div id="https://www.notion.so/3eb85eac518444ad9a97504906e95fa0" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/d8023ab58467420dafa9de370066aece" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">参考文章：</span></span></p></div><div id="https://www.notion.so/0ad03ade87fc40b0b83ea09be94f9e32" class="Bookmark"><a href="https://blog.csdn.net/Lammonpeter/article/details/82142020"><h5 class="Bookmark__Title">设计模式01--Iterator模式_Java_脚踏实地，慢慢来-CSDN博客</h5><p class="Bookmark__Desc">定义 迭代器（ Iterator ）模式，从其英文单词可以看出，有反复做某件事的意思。迭代器模式常用于数据集合中，对数据集合中的数据按照顺序进行遍历。它能提供一种方法访问一个容器对象中各个元素，而又不暴露该对象的内部细节。 问题引入 假设我们有一个书架，假设书架可以按照顺序放置无数本书，现在有一个需求，那就是遍历书架里面的所有的书籍，将书籍的名称打印出来。 常规的解决办法 一般情况下，我们在用代码来解决该问题的时候，都是想到使用 for循环，对书架中的每一本书进行循环遍历，然后输出名称。这是一种比较常规的做法，考虑的问题就是为了遍历书架中的书籍，并使用变量 i 来记录当前遍历到哪一本书了，以及将指针指向下一本书，伪代码如下： 这里的 for语句中的 i++的作用是将 i的值在每一次循环之后就自增 1，使得在遍历的过程中就可以访问集合中的下一本书籍，下下一本书籍，再下下一本书籍，直到遍历完所有的书籍。如果我们考虑将 i 的作用进行抽象化，使其通用化，那么就可以形成迭代器模式。 从List中获取启发 说到迭代器设计模式，大家肯定会想到 java.util包中的集合，是的， Java中集合类中运用到了迭代器设计模式，那么，我们在学习迭代器设计模式的时候，完全可以通过去学习集合的源码来学习迭代器设计模式，下面，我将从 ArrayList出发，探究一下在 ArrayList中如何运用的迭代器设计模式。 作为集合类的顶级接口， Collection接口继承了 Iterable接口， Iterable接口的子接口或者实现类都具备迭代和遍历的功能，那么List接口继承自 Collection，自然也是具备基本的迭代功能的，那么我们从 List出发，来探究迭代器模式的运用。 List接口中有一个重写自 Collection的 iterator()方法，它的返回值是一个 Iterator接口的实现类对象。 那么我们接着看 ArrayList类，它实现了 List接口，也实现了 List接口中的 iterator()方法。 那么，针对实例化 ArrayList的时候传入的具体的泛型，可以生成其对应的迭代器，也就是说，上图中 new语句后面的 Itr()创造出来的迭代器对象肯定是针对传入的泛型的迭代器对象。我们继续阅读代码，发现 Itr是 ArrayList的私有内部类，它还实现了 Iterator接口，也实现了基本的 hasNext()方法和 next()方法。 因为 Itr是 ArrayList的内部类，那么 Itr可以操作 ArrayList的成员变量，而 ArrayList作为集合，它内部的元素是存储在变量名为 elementData的 Object数组中的，整个遍历的过程就是针对这个数组进行遍历的。 分析完源码，我们也许还是有些迷糊，那么我们需要借助UML类图来描述这些接口或者类之间的关系了。 从上图可以看出， List接口中有创建 Iterator接口的实现类对象的抽象方法，而 ArrayList实现了 List接口，而 Itr类实现了 Iterator接口，且其拥有 ArrayList的元素数组，可以针对该数组进行一系列的操作，比如遍历。类图可以很清晰表表现出类与类之间的关系，不太熟悉的可以去学习一下 UML 类图。 手动实现迭代器设计模式 从 List中获取到迭代器设计模式实现的灵感，那么我们需要自己手动实现自己的迭代器模式，来解决文章开始引入的遍历书架的问题。首先，我们根据 List中采用的迭代器设计模式，我们需要一个集合接口 Aggregate（有&quot;使聚集&quot;、&quot;聚合&quot;的意思），该集合接口中有创建迭代器接口 Iterator实现类对象的抽象方法 iterator，这个迭代器接口有 hasNext、 next方法，用来判断集合是否还有元素以及获取集合元素，我们还需要具体的集合实现类，也就是具体的书架，用来承载书籍，该实现类实现了 Aggregate集合的 iterator方法，最后，我们还需要实现迭代器接口的具体类，它持有集合的具体的实现类，还实现了 hasNext和 next方法。我们将类图设计如下所示： 根据类图，我们可以很轻松地设计出基本的迭代器设计模式及的代码，主要代码如下所示： 该接口遵循类图的设计，接口中包含创建 Iterator 接口实现类对象的方法。 该迭代器接口有两个方法，分别是判断被遍历的集合是否还有元素以及获取集合中元素并将指针指向下一个元素。 getBookAt方法可以获取指定索引位置的书籍， appendBook方法是向书架中最后一个位置添加书籍的方法， getLength方法可以得到书籍的数量， iterator ...</p><p class="Bookmark__Link">https://blog.csdn.net/Lammonpeter/article/details/82142020</p></a></div><div id="https://www.notion.so/26a203ac945f4b1ea8f34b362912ed5a" class="Bookmark"><a href="https://blog.csdn.net/z55887/article/details/70548861"><h5 class="Bookmark__Title">Head First 设计模式（九）迭代器与组合模式_Java_大树的学习之路-CSDN博客</h5><p class="Bookmark__Desc">迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示 迭代器模式我们很熟悉，其实就是Java中集合的迭代原理，如果你研究过集合的源码，就会很容易理解这个模式。 现在有两家餐厅：煎饼店和饭店，它们想要合并。两家店的菜单需要统一起来，以便服务员给客户看。 但此时有一个问题，煎饼店和饭店的菜单，实现是不一样的： 从代码我们可以看出，两家店的菜单一个是数组实现，一个是集合实现。 这时，我们想要服务员提供新的菜单时，得分别针对两种不同的底层实现，进行不同的迭代： /** * 打印出菜单 */ public void printMenu() { ArrayList pMenuItems = pancakeMenu.menuItems; for (int i = 0; i &lt; pMenuItems.size(); i++) { MenuItem menuItem = pMenuItems.get(i); System.out.println(menuItem.getName()+&quot;:&quot;+menuItem.getPrice()); } MenuItem[] dMenuItems = dinnerMenu.menuItems; for (int i = 0,n = dMenuItems.length; i &lt; n; i++) {</p><p class="Bookmark__Link">https://blog.csdn.net/z55887/article/details/70548861</p></a></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

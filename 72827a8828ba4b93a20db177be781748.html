@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Typora自动上传又拍云脚本(for *x user)">
+    <meta property="og:type" content="blog">
+  <title>Typora自动上传又拍云脚本(for *x user)</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Icon"><span>📄</span></span>
+            <span class="Header__Title">Typora自动上传又拍云脚本(for *x user)</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Wed, Aug 5, 2020</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--orange">
+        <a href="tag/Script.html">Script</a>
+      </span>
+            <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--yellow">
+        <a href="tag/Cloud.html">Cloud</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/72827a8828ba4b93a20db177be781748" class="PageRoot"><h2 id="https://www.notion.so/00d7393195b24103b225cc5c8a4664c3" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/00d7393195b24103b225cc5c8a4664c3"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">啰嗦在前</span></span></h2><div id="https://www.notion.so/70088ffc122a46d392e28296c69cbf2b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">其实我之前一直没尝试长期使用Typora，因为那时Typora似乎还没有自动上传图片到云储存上的功能。</span></span></p></div><div id="https://www.notion.so/e2f813ab9e4d4e1481a86939cc87c60f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">并且选择了国内做的比较好的小书匠编辑器。并且小书匠还支持从git仓库读取md文件，同时支持保存md文件到git仓库中。</span></span></p></div><div id="https://www.notion.so/c77fc46e63fa4d999e9007ed358668e3" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">后者对hexo用户是一个很好的生态支持，试想那样：用小书匠编写md文章，自动保存到git仓库中，如果仓库使用CI/CD自动化部署，保存md后会触发流水线执行build，并且自动部署。</span></span></p></div><div id="https://www.notion.so/90ca03455c95437ebb0523902bec9376" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/258244e0684646e7937ac1ae05ab1d7f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">并且如果你是小书匠付费会员用户，那么你的第三方云存储、git仓库等配置文件是自动同步到云上的。不用重新进行配置，配置一次很麻烦。而且小书匠时常更新，这一定程度上体现该团队对该产品的用心，但增量更新只支持付费用户，免费用户需要重装。</span></span></p></div><div id="https://www.notion.so/2749586b6d8f464a947809d4da889af9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/18d0ec5acf444326ba5236972e464f35" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">并且最近发现小书匠会员变成了40元/年，之前是20元/年。</span></span></p></div><div id="https://www.notion.so/4df9542fb673459e9ba44c71f68398e5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/4e858361172348edb41d047e8f4c2113" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">所以，我寻找了typora+auto upload script方案进行简单的写作。</span></span></p></div><div id="https://www.notion.so/e112a0f70859453c8b5a5ff14878ba6c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h2 id="https://www.notion.so/79b8f51d425e4951acbfc226265df34c" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/79b8f51d425e4951acbfc226265df34c"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">转载</span></span></h2><div id="https://www.notion.so/8f5938c3d8c6476490a4c8ded9888850" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">废话不多说，我是直接参考了网上大神的博客：</span></span></p></div><div id="https://www.notion.so/79a81c7303ae422d9545609891e8ac31" class="Bookmark"><a href="https://www.gaficat.com/posts/6f888707.html#"><h5 class="Bookmark__Title">Typora自定义命令自动上传图片 - 加菲猫的创客工坊</h5><p class="Bookmark__Desc">Typora是我非常喜欢的Markdown编辑器，之前的一个更新，Typora支持了&quot;上传图像&quot;的功能（即写文章时，插入图片自动将其上传至图床），我们可以直接借助IPic、uPic、PicGo等程序，配合Typora自动将图片上传至又拍云等对象存储平台。但是，官方的文档晦涩难懂，我尝试进行了一些配置，但始终还是不好使，那咋办嘛？ ...</p><p class="Bookmark__Link">https://www.gaficat.com/posts/6f888707.html#</p></a></div><div id="https://www.notion.so/5d7c224b939047babd9166261d7575b1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">1）编写一个shell脚本（如标题所言，只针对Linux、Unix用户），命名为</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">upload_upy.sh</code></span><span class="SemanticString">:</span></span></p></div><pre id="https://www.notion.so/95dcee2d296c488aa760429ddd32dfeb" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>#!/bin/bash
+
+time_day=$(date &quot;+%Y/%m/%d/&quot;)
+# 各类配置信息
+bucket=&quot;ccsd-img&quot; # 云存储服务的名称
+remote_path=&quot;article/&quot;&quot;${time_day}&quot; # 上传默认的路径
+auth=&quot;ancVsazWmFuwOolREcnRMWUttYTJwc2NxQndSelNIY3RIQXQwVWFybWVR&quot; # 操作员名和操作员密码按照operator:password拼接Base64编码
+base_url=&quot;https://img.example.com/&quot; # 对象存储绑定的域名
+
+# 上传图片
+for i in &quot;$@&quot;; do
+    curl https://v0.api.upyun.com/&quot;$bucket&quot;/&quot;$remote_path&quot; -H &quot;Authorization: Basic &quot;&quot;$auth&quot; --upload-file &quot;$i&quot;
+done
+
+# 输出结果
+echo &quot;Upload Success:&quot;
+for file in &quot;$@&quot;; do
+    IFS=&#x27;/&#x27; read -r -a array &lt;&lt;&lt; &quot;$file&quot;
+    id=&quot;${#array[@]}&quot;
+    echo &quot;$base_url&quot;&quot;$remote_path&quot;&quot;${array[$id-1]}&quot;
+done</span></span></span></code></pre><div id="https://www.notion.so/740290b9aa554c7eb88cb4965c2a8f10" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">该脚本在原文基础上加入了照片路径时间戳功能，和原文上传照片的区别（以</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">temp.jpg</code></span><span class="SemanticString">为例）：</span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/32d36e54d99b420d889ebf59dde08b1a" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">原文上传到：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://xxx.xxx.xx/default/temp.jpg">https://xxx.xxx.xx/default/temp.jpg</a></code></span></span></li><li id="https://www.notion.so/968a6a5851d54e0f928f87d593a837f2" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">修改后上传到：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">https://img.example.com/article/yyyy/mm/dd/temp.jpg</code></span></span></li></ul><div id="https://www.notion.so/68cf3c8c30174171860910732c6af5c5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">2）然后赋予</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">upload_upy.sh</code></span><span class="SemanticString">可执行权限（</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">chmod +x upload_upy.sh</code></span><span class="SemanticString">）</span></span></p></div><div id="https://www.notion.so/0c46bfac1137425a846f500f8e0b9df7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">3）然后Typora中，选择File→Preferences→Image→Image Upload Setting→Command→</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">bash /xxx/upload_upy.sh</code></span></span></p></div><div id="https://www.notion.so/f8838a52e1814cc29bc28b6e125f2757" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">4）然后点击Test Uploader，结果如下图：</span></span></p></div><div id="https://www.notion.so/e24292bf72ff4cf8b061c2f16f58a219" class="Image Image--PageWidth"><figure><a href="https://img.woyun.ink/article/2020/08/05/DeepinScreenshot_select-area_20200805203919.png"><img src="https://img.woyun.ink/article/2020/08/05/DeepinScreenshot_select-area_20200805203919.png" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/bf3537aea17c45f4bf6db4eed94aaa37" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">还可以右键文章非远程服务器上的图片进行上传到云存储上。</span></span></p></div><div id="https://www.notion.so/716dc7f20ccb45dcb07df44f7cd3f2ad" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">至于怎么把文章中所有的图片上传到云上，还没研究。</span></span></p></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

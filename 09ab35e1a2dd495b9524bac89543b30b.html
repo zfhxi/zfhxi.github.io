@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Zynq7000三种GPIO的使用之点亮流水灯摘要">
+    <meta name="description" content="对zynq7000上的3中GPIO使用各做一个demo……">
+  <meta property="og:description" content="对zynq7000上的3中GPIO使用各做一个demo……">
+    <meta property="og:type" content="blog">
+  <title>Zynq7000三种GPIO的使用之点亮流水灯摘要</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Title">Zynq7000三种GPIO的使用之点亮流水灯摘要</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Mon, Dec 2, 2019</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--gray">
+        <a href="tag/Zynq.html">Zynq</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/09ab35e1a2dd495b9524bac89543b30b" class="PageRoot"><ul id="https://www.notion.so/b90309f1f8a447c2ad8032160fda5180" class="ColorfulBlock ColorfulBlock--ColorGray TableOfContents"><li class="TableOfContents__Item"><a href="#https://www.notion.so/d018219630224cd1be7866138a38544f"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">MIO</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/864ead9b3c7b47e4ba0db9ad11c7a665"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">EMIO</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/726c0d47f4b0445a81f037a257fa3f29"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">AXI GPIO</span></span></div></a></li></ul><h2 id="https://www.notion.so/d018219630224cd1be7866138a38544f" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/d018219630224cd1be7866138a38544f"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">MIO</span></span></h2><div id="https://www.notion.so/4dee85693fdc4501a75b315aacd46f53" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">直接使用PS部分的MIO。</span></span></p></div><div id="https://www.notion.so/6e19810436c448cfa8e0ef4b3ac0694d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">由于MIO属于PS部分，不需要进行块设计，因而不用进行Program FPGA。</span></span></p></div><div id="https://www.notion.so/7c8df66f7e2144b68d4bca18cb9ebbd2" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">另外，由于MIO上的大部分引脚已被固定，因而可操作的Pins几乎没有，下面仅操作D3这一绿色LED灯使之闪烁。</span></span></p></div><div id="https://www.notion.so/793a60709abf4a47a378a62c54d43977" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">SDK代码：</span></span></p></div><pre id="https://www.notion.so/aff24097e41443f9b08df79865cedf3f" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xparameters.h"</span><span class="token comment">//硬件参数定义</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xgpiops.h"</span><span class="token comment">//PS部分的GPIO的库函数</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xil_printf.h"</span><span class="token comment">//串口输出库函数</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xstatus.h"</span><span class="token comment">//状态码定义头文件</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xplatform_info.h"</span><span class="token comment">//平台定义头文件</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token expression">D3_PINNUM <span class="token number">0x00</span> </span><span class="token comment">/*D3的PS GPIO的通道*/</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token expression">SLEEP_DELAY <span class="token number">10000000</span></span><span class="token comment">/**/</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	XGpioPs Gpio<span class="token punctuation">;</span> <span class="token comment">/*GPIO driver的实例*/</span>
+	<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"流水灯开始跑起来吧！\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//测试目标板子的芯片</span>
+	<span class="token keyword">int</span> typeOfboard<span class="token operator">=</span><span class="token function">XGetPlatform_Info</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">switch</span><span class="token punctuation">(</span>typeOfboard<span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">case</span> XPLAT_ZYNQ_ULTRA_MP<span class="token operator">:</span>
+		<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"这是ZYNQ_ULTRA型开发版\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">break</span><span class="token punctuation">;</span>
+	<span class="token keyword">case</span> XPLAT_ZYNQ<span class="token operator">:</span>
+		<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"这是ZYNQ型开发版\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">break</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">//初始化PS部分的GPIO Driver</span>
+	XGpioPs_Config<span class="token operator">*</span> cfgPtr<span class="token operator">=</span><span class="token function">XGpioPs_LookupConfig</span><span class="token punctuation">(</span>XPAR_XGPIOPS_0_DEVICE_ID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">int</span> Status<span class="token operator">=</span><span class="token function">XGpioPs_CfgInitialize</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>cfgPtr<span class="token punctuation">,</span>cfgPtr<span class="token operator">-></span>BaseAddr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>XST_SUCCESS<span class="token operator">!=</span>Status<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"您PS部分的GPIO Driver好像初始化失败呢！\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> XST_FAILURE<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">//设置GPIO Driver的某通道的all pins为输出</span>
+	<span class="token function">XGpioPs_SetDirectionPin</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>D3_PINNUM<span class="token punctuation">,</span><span class="token number">0x01</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//允许all pins能够输出</span>
+	<span class="token function">XGpioPs_SetOutputEnablePin</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>D3_PINNUM<span class="token punctuation">,</span><span class="token number">0X01</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">XGpioPs_WritePin</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>D3_PINNUM<span class="token punctuation">,</span><span class="token number">0x00</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全亮</span>
+	<span class="token keyword">volatile</span> <span class="token keyword">int</span> Delay<span class="token punctuation">;</span><span class="token comment">//volatile声明其为易变的变量，编译器不优化。</span>
+	u32 blink_led_pos<span class="token punctuation">;</span>
+	<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">8</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+			<span class="token function">XGpioPs_Write</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>D3_PINNUM<span class="token punctuation">,</span>i<span class="token operator">%</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">for</span><span class="token punctuation">(</span>Delay<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>Delay<span class="token operator">&lt;</span><span class="token number">3</span><span class="token operator">*</span>SLEEP_DELAY<span class="token punctuation">;</span>Delay<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//延时</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token function">XGpioPs_Write</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>D3_PINNUM<span class="token punctuation">,</span><span class="token number">0x00</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全亮</span>
+	<span class="token keyword">for</span><span class="token punctuation">(</span>Delay<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>Delay<span class="token operator">&lt;</span><span class="token number">2</span><span class="token operator">*</span>SLEEP_DELAY<span class="token punctuation">;</span>Delay<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">XGpioPs_Write</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>D3_PINNUM<span class="token punctuation">,</span><span class="token number">0x01</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全灭</span>
+	<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"这边提醒您，流水灯成功跑了耶！\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> XST_SUCCESS<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></span></span></span></code></pre><h2 id="https://www.notion.so/864ead9b3c7b47e4ba0db9ad11c7a665" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/864ead9b3c7b47e4ba0db9ad11c7a665"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">EMIO</span></span></h2><div id="https://www.notion.so/e1edd7f9c7364954bb4df34a8e69b69c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">EMIO属于PS，却被连接到PL</span></span></p></div><div id="https://www.notion.so/e2e392601dbc44ab9a71ba28c070e71c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">IP 配置</span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/8931301876e642b8b14f6d473cbb8dfc" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">关GPIO MIO[可选]，并打开EMIO，位数设置8</span></span></li><li id="https://www.notion.so/653e707952184e299df12dcd3d062158" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">关M AXI GPIO Interface[可选]</span></span></li></ul><div id="https://www.notion.so/79765830f8a247ae8b7e3a649292fa56" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">块设计：</span></span></p></div><div id="https://www.notion.so/0bb360a9aa314323a379a93721398c19" class="Image Image--PageWidth"><figure><a href="#"><img src="#" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/0abb1e31f10b48d99cfdd27ffc24535c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">生成bitstream文件后，打开SDK新建项目。</span></span></p></div><div id="https://www.notion.so/0a00ede6256d4f259888cafce6594561" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">SDK代码：</span></span></p></div><pre id="https://www.notion.so/b5c780c7c67c4bf8a198a21163e53407" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xparameters.h"</span><span class="token comment">//硬件参数定义</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xgpiops.h"</span><span class="token comment">//PS部分的GPIO的库函数</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xil_printf.h"</span><span class="token comment">//串口输出库函数</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xstatus.h"</span><span class="token comment">//状态码定义头文件</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xplatform_info.h"</span><span class="token comment">//平台定义头文件</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token expression">LED_BANK <span class="token number">0x02</span> </span><span class="token comment">/*流水灯的PS GPIO的通道*/</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token expression">SLEEP_DELAY <span class="token number">10000000</span></span><span class="token comment">/**/</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token expression">LED_POS <span class="token number">0x01</span> </span><span class="token comment">/*指向第几号流水灯*/</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	XGpioPs Gpio<span class="token punctuation">;</span> <span class="token comment">/*GPIO driver的实例*/</span>
+	<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"流水灯开始跑起来吧！\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//测试目标板子的芯片</span>
+	<span class="token keyword">int</span> typeOfboard<span class="token operator">=</span><span class="token function">XGetPlatform_Info</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">switch</span><span class="token punctuation">(</span>typeOfboard<span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">case</span> XPLAT_ZYNQ_ULTRA_MP<span class="token operator">:</span>
+		<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"这是ZYNQ_ULTRA型开发版\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">break</span><span class="token punctuation">;</span>
+	<span class="token keyword">case</span> XPLAT_ZYNQ<span class="token operator">:</span>
+		<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"这是ZYNQ型开发版\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">break</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">//初始化PS部分的GPIO Driver</span>
+	XGpioPs_Config<span class="token operator">*</span> cfgPtr<span class="token operator">=</span><span class="token function">XGpioPs_LookupConfig</span><span class="token punctuation">(</span>XPAR_XGPIOPS_0_DEVICE_ID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">int</span> Status<span class="token operator">=</span><span class="token function">XGpioPs_CfgInitialize</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>cfgPtr<span class="token punctuation">,</span>cfgPtr<span class="token operator">-></span>BaseAddr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>XST_SUCCESS<span class="token operator">!=</span>Status<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"您PS部分的GPIO Driver好像初始化失败呢！\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> XST_FAILURE<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">//设置GPIO Driver的某通道的all pins为输出</span>
+	<span class="token function">XGpioPs_SetDirection</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>LED_BANK<span class="token punctuation">,</span><span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//允许all pins能够输出</span>
+	<span class="token function">XGpioPs_SetOutputEnable</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>LED_BANK<span class="token punctuation">,</span><span class="token number">0XFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">XGpioPs_Write</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>LED_BANK<span class="token punctuation">,</span><span class="token number">0x00</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全亮</span>
+	<span class="token keyword">volatile</span> <span class="token keyword">int</span> Delay<span class="token punctuation">;</span>
+	u32 blink_led_pos<span class="token punctuation">;</span>
+	<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">8</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+			blink_led_pos<span class="token operator">=</span><span class="token operator">~</span><span class="token punctuation">(</span>LED_POS<span class="token operator">&lt;&lt;</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//让某个灯亮，取反操作</span>
+			<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"blink_led_pos = %x\\n"</span><span class="token punctuation">,</span>blink_led_pos<span class="token operator">&amp;</span><span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token function">XGpioPs_Write</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>LED_BANK<span class="token punctuation">,</span>blink_led_pos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">for</span><span class="token punctuation">(</span>Delay<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>Delay<span class="token operator">&lt;</span><span class="token number">3</span><span class="token operator">*</span>SLEEP_DELAY<span class="token punctuation">;</span>Delay<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//延时</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token function">XGpioPs_Write</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>LED_BANK<span class="token punctuation">,</span><span class="token number">0x00</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全亮</span>
+	<span class="token keyword">for</span><span class="token punctuation">(</span>Delay<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>Delay<span class="token operator">&lt;</span><span class="token number">2</span><span class="token operator">*</span>SLEEP_DELAY<span class="token punctuation">;</span>Delay<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">XGpioPs_Write</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>LED_BANK<span class="token punctuation">,</span><span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全灭</span>
+	<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"这边提醒您，流水灯成功跑了耶！\\r\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> XST_SUCCESS<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></span></span></span></code></pre><h2 id="https://www.notion.so/726c0d47f4b0445a81f037a257fa3f29" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/726c0d47f4b0445a81f037a257fa3f29"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">AXI GPIO</span></span></h2><div id="https://www.notion.so/523bf35a5f45402a84ba693f2f0ae07a" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">IP配置：</span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/d2116de2a6dc4bfbab7962faf91b549a" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">关掉GPIO MIO和EMIO[可选]</span></span></li><li id="https://www.notion.so/577c320f99a44642a73708096f21fd4f" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">打开AXI GPIO Interface</span></span></li></ul><div id="https://www.notion.so/7dbf1b9082f5416ab04b04eb0cf2c4d3" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">块设计：</span></span></p></div><div id="https://www.notion.so/453f6f226f514c999be948ad499c7b18" class="Image Image--PageWidth"><figure><a href="#"><img src="#" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/9f78cc3f2d3148f0b786d15e0eff1fb9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">SDK代码：</span></span></p></div><pre id="https://www.notion.so/36eb193300754f828e31cedc420ac8a1" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xparameters.h"</span><span class="token comment">//硬件参数定义</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"xgpio.h"</span><span class="token comment">//GPIO库函数</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"xil_printf.h"</span><span class="token comment">//串口输出库函数</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token expression">WATERFALL_LED_CHANNEL <span class="token number">1</span> </span><span class="token comment">/*流水灯的GPIO的通道*/</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token expression">SLEEP_DELAY <span class="token number">10000000</span></span><span class="token comment">/**/</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token expression">LED_POS <span class="token number">0x01</span> </span><span class="token comment">/*指向第几号流水灯*/</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	XGpio Gpio<span class="token punctuation">;</span> <span class="token comment">/*GPIO driver的实例*/</span>
+	<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"流水灯开始跑起来吧！\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//初始化GPIO Driver</span>
+	<span class="token keyword">int</span> Status<span class="token operator">=</span><span class="token function">XGpio_Initialize</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>XPAR_GPIO_0_DEVICE_ID<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//设备ID在xparameters.h中查看</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>XST_SUCCESS<span class="token operator">!=</span>Status<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"您的GPIO Driver好像初始化失败呢！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> XST_FAILURE<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">//设置GPIO Driver的某通道为输出</span>
+	<span class="token function">XGpio_SetDataDirection</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>WATERFALL_LED_CHANNEL<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">volatile</span> <span class="token keyword">int</span> Delay<span class="token punctuation">;</span>
+	<span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+	u32 blink_led_pos<span class="token punctuation">;</span>
+	<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token operator">++</span>j<span class="token operator">&lt;</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">8</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+			blink_led_pos<span class="token operator">=</span><span class="token operator">~</span><span class="token punctuation">(</span>LED_POS<span class="token operator">&lt;&lt;</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//让某个灯亮，取反操作</span>
+			<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"blink_led_pos = %x\\n"</span><span class="token punctuation">,</span>blink_led_pos<span class="token operator">&amp;</span><span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token function">XGpio_DiscreteWrite</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>WATERFALL_LED_CHANNEL<span class="token punctuation">,</span>blink_led_pos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">for</span><span class="token punctuation">(</span>Delay<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>Delay<span class="token operator">&lt;</span><span class="token number">2</span><span class="token operator">*</span>SLEEP_DELAY<span class="token punctuation">;</span>Delay<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//延时</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token function">XGpio_DiscreteWrite</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>WATERFALL_LED_CHANNEL<span class="token punctuation">,</span><span class="token number">0x00</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全亮</span>
+	<span class="token keyword">for</span><span class="token punctuation">(</span>Delay<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>Delay<span class="token operator">&lt;</span><span class="token number">2</span><span class="token operator">*</span>SLEEP_DELAY<span class="token punctuation">;</span>Delay<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">XGpio_DiscreteWrite</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Gpio<span class="token punctuation">,</span>WATERFALL_LED_CHANNEL<span class="token punctuation">,</span><span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全灭</span>
+	<span class="token function">xil_printf</span><span class="token punctuation">(</span><span class="token string">"这边提醒您，流水灯成功跑了耶！\\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> XST_SUCCESS<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></span></span></span></code></pre></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

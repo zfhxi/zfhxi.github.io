@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Python爬取教务网课表并转成可导入手机日历的ics文件">
+    <meta name="description" content=" ">
+  <meta property="og:description" content=" ">
+    <meta property="og:type" content="blog">
+  <title>Python爬取教务网课表并转成可导入手机日历的ics文件</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Icon"><span>📑</span></span>
+            <span class="Header__Title">Python爬取教务网课表并转成可导入手机日历的ics文件</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Sat, Aug 10, 2019</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--pink">
+        <a href="tag/Python.html">Python</a>
+      </span>
+            <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--blue">
+        <a href="tag/Crawler.html">Crawler</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/1b584278c81b446c81270b4cb349973c" class="PageRoot"><h2 id="https://www.notion.so/1ac96381462a43db8bbfd1a35f1a45a3" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/1ac96381462a43db8bbfd1a35f1a45a3"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">前述</span></span></h2><div id="https://www.notion.so/4b7988b6344a4d97be527fa3e5218cf9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">由于许多课表软件有广告，并且还有着各种花式“服务”，自觉体验并不好。因之，在许久之前，自己想写一个python脚本，从教务网爬取课表，然后导入到自己手机的系统日历中，然后在桌面添加一个日历小工具，显示日程列表。</span></span></p></div><div id="https://www.notion.so/858339e016744df4ad43dca001d5660c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">预期（也是目前实现）的效果图如下：</span></span></p></div><div id="https://www.notion.so/d46eaa399a36413596bffd5f24077a88" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/7303a8d1ae5b41dba53bd3a9959b0ea4" class="ColumnList"><div id="https://www.notion.so/ceaec9f913f0426298e3738c46d06ec1" class="Column" style="width:calc((100% - var(--column-spacing) * 1) * 0.5)"><div id="https://www.notion.so/a587011a70774f4bbe7a2de79fcfa0e7" class="Image Image--PageWidth"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd4c808a4-3bd6-406d-a7d6-7919a78be8a6%2FUntitled.png?width=336&amp;table=block&amp;id=a587011a-7077-4f4b-be7a-2de79fcfa0e7"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd4c808a4-3bd6-406d-a7d6-7919a78be8a6%2FUntitled.png?width=336&amp;table=block&amp;id=a587011a-7077-4f4b-be7a-2de79fcfa0e7" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div></div><div id="https://www.notion.so/ccf93ae24d6648a191fb13c749373c6f" class="Column" style="width:calc((100% - var(--column-spacing) * 1) * 0.5)"><div id="https://www.notion.so/e6a83bf8001d4ddb8cd3f1d8d10adbae" class="Image Image--PageWidth"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb5ff44ed-4433-4d93-a7ab-1d42e0a8f17e%2FUntitled.png?width=336&amp;table=block&amp;id=e6a83bf8-001d-4ddb-8cd3-f1d8d10adbae"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb5ff44ed-4433-4d93-a7ab-1d42e0a8f17e%2FUntitled.png?width=336&amp;table=block&amp;id=e6a83bf8-001d-4ddb-8cd3-f1d8d10adbae" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div></div></div><div id="https://www.notion.so/7b653faddfda4787b7fb90b4cfbd66fa" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">结合滴答清单的话，感觉更妙了。</span></span></p></div><div id="https://www.notion.so/63e405d33ce44396837bc60cf1727967" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">（以上日期均为编造）</span></span></p></div><h2 id="https://www.notion.so/c10eb1c226b64f10b96b6d16f71eed96" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/c10eb1c226b64f10b96b6d16f71eed96"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">实现</span></span></h2><div id="https://www.notion.so/994349f7c4af4f74be1e387512b023c6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">初学Python，对爬虫了解也更少。因此写代码是不可能的，不过在参考学长的经验下，略作“调参”、“CTRL CV”类似的操作就行。</span></span></p></div><div id="https://www.notion.so/4fa9af407e194483a2705c3a829f0568" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">下面是参考的文章：
+</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://cloverii.github.io/2017-05-04/a-python-crawler-for-getting-school-timetable/">《Python 模拟登录教务网获取课表》</a></span><span class="SemanticString">一文中实现了从教务网捕获课表html。
+</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://www.fengkx.top/post/ical-and-learning-python/">《iCal &amp; Python 学习》</a></span><span class="SemanticString">中通过</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">bs4</code></span><span class="SemanticString">库从html标签中获取课表信息相关的string，然后通过</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">icalendar</code></span><span class="SemanticString">库实现由课表信息的string，生成可导入日历App的ics文件。</span></span></p></div><div id="https://www.notion.so/86a961687e064b08a33d6eaf10281e4b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后将两者结合起来，就是可用的脚本。</span></span></p></div><div id="https://www.notion.so/b6429e8837274e789c4f9f22479fe429" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">代码见：</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://github.com/zfhxi/Catch_CQU_CoursTable/blob/master/main.py">https://github.com/zfhxi/Catch_CQU_CoursTable/blob/master/main.py</a></span></span></p></div><div id="https://www.notion.so/a9fec17aa3ab45b8acfbf4347042d5c7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">(由于要安装各种各样的库，所以我使用Anaconda 3，但还需安装</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">bs4</code></span><span class="SemanticString">、</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">icalendar</code></span><span class="SemanticString">）</span></span></p></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>
