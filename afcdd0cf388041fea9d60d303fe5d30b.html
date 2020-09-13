@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Windows下vim编译安装YouCompleteMe插件">
+    <meta property="og:type" content="blog">
+  <title>Windows下vim编译安装YouCompleteMe插件</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Icon"><span>📑</span></span>
+            <span class="Header__Title">Windows下vim编译安装YouCompleteMe插件</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Sun, Jun 24, 2018</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--yellow">
+        <a href="tag/vim.html">vim</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/afcdd0cf388041fea9d60d303fe5d30b" class="PageRoot"><div id="https://www.notion.so/35084a24ad4a42ae9aa20467d7fb17c0" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">上一篇文章《Windows编译安装Vim/Gvim》是以安装ycm为目的而写的。ycm在vim插件中极为难装，在linux下就已经很难折腾了，更别说windows下安装这插件，安装错误真是多如牛毛。为什么非得安装ycm？对于本人来说，vim没有强大的插件，就变得和记事本一样，而ycm是vim强大插件之一。
+由于网上关于windows下安装ycm的资料浩如烟海，即使本人一一尝试，本人并未找出最简洁的安装方案，所以以下部分操作可能是不必要的，希望能帮忙指出。</span></span></p></div><blockquote id="https://www.notion.so/9e261c2b67b64fbda7ae39adc2f85419" class="ColorfulBlock ColorfulBlock--ColorRed Quote"><span class="SemanticStringArray"><span class="SemanticString">注：本文的某些软件版本已不是最新版，但大体方法可变通适用！</span></span></blockquote><div id="https://www.notion.so/f0f524ec66a24243bb7b3a08e3ce7cca" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">本文环境：</span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/cb7a926d82f64cccb8a49362d4c7a09b" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Visual Studio 2017</span></span></li><li id="https://www.notion.so/f7fba924347f4dad98fb91b3eaa5c23c" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Git</span></span></li><li id="https://www.notion.so/ac610da6490642eda61498bca4c45d5f" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Python3.6.5</span></span></li><li id="https://www.notion.so/ab97bfefb9894513b199cefb172940bf" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">clang</span></span></li><li id="https://www.notion.so/70684b339e424387a0c40453b067d788" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Cmake</span></span></li></ul><h2 id="https://www.notion.so/111824fc77b24a5e85c3f0dccdef4ffa" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/111824fc77b24a5e85c3f0dccdef4ffa"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">编译环境部署</span></span></h2><ol class="NumberedListWrapper"><li id="https://www.notion.so/52b77e2f65b742ab9164e02d51e74bd6" class="NumberedList" value="1"><span class="SemanticStringArray"><span class="SemanticString">Visual Studio 2017安装：官网</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://visualstudio.microsoft.com/zh-hans/downloads/">https://visualstudio.microsoft.com/zh-hans/downloads/</a></span><span class="SemanticString">下载安装Visual Studio 2017，并安装</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">使用C++的桌面开发</code></span><span class="SemanticString">支持。</span></span></li><li id="https://www.notion.so/40fcb2938b114f97bb8ea1086abf1c58" class="NumberedList" value="2"><span class="SemanticStringArray"><span class="SemanticString"> Git和Python3.6.5的安装这已在上一篇文章中提及。</span></span></li><li id="https://www.notion.so/83988f054b59404baf804d74e1e5b282" class="NumberedList" value="3"><span class="SemanticStringArray"><span class="SemanticString">clang安装：在</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="http://releases.llvm.org/download.html">http://releases.llvm.org/download.html</a></span><span class="SemanticString">下载新版的Pre-Built Binaries包：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Clang for Windows (64-bit) (.sig)</code></span><span class="SemanticString">得到</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">LLVM-5.0.2-win64.exe</code></span><span class="SemanticString">打开安装，勾选添加到系统变量中。本文安装路径为</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">E:\DevelopTools\LLVMCLANG\LLVM</code></span></span></li><li id="https://www.notion.so/478717b95a8e4a69bc525b0feae9ea4a" class="NumberedList" value="4"><span class="SemanticStringArray"><span class="SemanticString">cmake安装：在</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://cmake.org/download/">https://cmake.org/download/</a></span><span class="SemanticString">下载</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">cmake-3.12.0-rc1-win64-x64.msi</code></span><span class="SemanticString">,打开安装即可。</span></span></li></ol><h2 id="https://www.notion.so/e8049c359c824accabe8cf01c8ca0a82" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/e8049c359c824accabe8cf01c8ca0a82"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">下载ycm</span></span></h2><div id="https://www.notion.so/ae85cd6cbd474c4aacd10e4fc846191b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">E:\DevelopTools\Vim\vimfiles\bundle</code></span><span class="SemanticString">下右键</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Git Bash here</code></span><span class="SemanticString">然后执行：</span></span></p></div><pre id="https://www.notion.so/cbda6c85c9ef4f7fb0725f8477f651fa" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">git</span> clone https://github.com/Valloric/YouCompleteMe.git
+<span class="token builtin class-name">cd</span> YouCompleteMe 
+<span class="token function">git</span> submodule update --init --recursive</span></span></span></code></pre><div id="https://www.notion.so/695b5187ea214934b068cbf752f5e94f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">等待下载完成。</span></span></p></div><h2 id="https://www.notion.so/5d78c7b1405d453594ebc06d6de2575d" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/5d78c7b1405d453594ebc06d6de2575d"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">编译ycm</span></span></h2><div id="https://www.notion.so/7787bae90d8d477080e4409f3c8343f0" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在YouCompleteMe创建build文件夹。
+打开Cmake-Gui，填写如下：
+Where is the source code：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">E:/DevelopTools/Vim/vimfiles/bundle/YouCompleteMe/third_party/ycmd/cpp</code></span><span class="SemanticString">
+Where to build the binaries：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">E:/DevelopTools/Vim/vimfiles/bundle/YouCompleteMe/build</code></span><span class="SemanticString">
+选中Advanced。
+点击configure，切换成</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Visual Studio 15 Win64</code></span><span class="SemanticString">。
+然后一般会报错（未报错就当报错处理），去掉</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">USER_PYTHON2</code></span><span class="SemanticString">，再Configure。
+修改</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">PYTHON_LIBRARY</code></span><span class="SemanticString">的value值：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">E:/DevelopTools/python36/libs/python36.lib</code></span><span class="SemanticString">为你的Python3下的</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">python36.lib</code></span><span class="SemanticString">。
+再勾选</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">USE_CLANG_COMPLETER</code></span><span class="SemanticString">，修改</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">PATH_TO_LLVM_ROOT</code></span><span class="SemanticString">的值：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">E:\DevelopTools\LLVMCLANG\LLVM</code></span><span class="SemanticString">为你的clang安装路径，需保证该路径下含有</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">bin、include、lib...</code></span><span class="SemanticString">
+继续Configure，直到没有报错，然后Generate。
+出现</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">NOT using clang-tidy for static analysis</code></span><span class="SemanticString">可以不管。（目前不知是何原因）</span></span></p></div><blockquote id="https://www.notion.so/6c89b8a0dcc0482c93446381786ae572" class="ColorfulBlock ColorfulBlock--ColorRed Quote"><span class="SemanticStringArray"><span class="SemanticString">注：切记切换成Visual Studio 1x x64，不要使用默认的win32</span></span></blockquote><div id="https://www.notion.so/9eaa881442cb4489ac38b79daff94e03" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/15ce89e045fb4fa4a732038cfd270920" class="Image Image--Normal"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc06b9cbb-0c5d-4dcf-b943-efda815efbd0%2FUntitled.png?width=432&amp;table=block&amp;id=15ce89e0-45fb-4fa4-a732-038cfd270920"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc06b9cbb-0c5d-4dcf-b943-efda815efbd0%2FUntitled.png?width=432&amp;table=block&amp;id=15ce89e0-45fb-4fa4-a732-038cfd270920" style="width:432px"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><h2 id="https://www.notion.so/cf40d325aebc4f8f8a00f6c78b4caad0" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/cf40d325aebc4f8f8a00f6c78b4caad0"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">安装ycm</span></span></h2><div id="https://www.notion.so/827fa8f331bb40cebf3b7d072bb549f1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后使用cmd并cd到</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">E:/DevelopTools/Vim/vimfiles/bundle/YouCompleteMe/build</code></span><span class="SemanticString">，执行：</span></span></p></div><pre id="https://www.notion.so/eaae21d86ce847c69312288cf484b565" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>cmake --build <span class="token builtin class-name">.</span> --target ycm_core --config Release</span></span></span></code></pre><div id="https://www.notion.so/681d8e68817b4edfaca437441d4ffd57" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">如果LLVM以及MinGW在Path中，可以不做下面这一步：
+然后 将E:\DevelopTools\msys2\mingw64\bin\libstdc++-6.dll、E:\DevelopTools\msys2\mingw64\bin\libwinpthread-1.dll、E:\DevelopTools\msys2\mingw64\bin\libgcc_s_seh-1.dll、E:\DevelopTools\LLVMCLANG\LLVM\bin\libclang.dll拷贝到YouCompleteMe/third_party/ycmd。</span></span></p></div><h2 id="https://www.notion.so/c61f771ccc6742418ba4bece90a50069" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/c61f771ccc6742418ba4bece90a50069"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">配置ycm</span></span></h2><div id="https://www.notion.so/e4d469219be940e9a07b396b17ab1f99" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">将:\DevelopTools\Vim\vimfiles\bundle\YouCompleteMe\third_party\ycmd\examples\.ycm_extra_conf.py复制到%USERPROFILE%系统用户目录C:\Users\Julian
+在用户目录的_vimrc中添加：</span></span></p></div><pre id="https://www.notion.so/58fc9915b5d64800b835a09ba9b3ead3" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>&quot;YouCompleteMe
+&quot;配置默认文件路径
+let g:ycm_global_ycm_extra_conf = &#x27;C:/Users/Julian/.ycm_extra_conf.py&#x27;
+&quot;打开vim时不再询问是否加载ycm_extra_conf.py配置
+let g:ycm_confirm_extra_conf = 0
+set completeopt=longest,menu
+&quot;自动开启语义补全
+let g:ycm_seed_identifiers_with_syntax = 1
+&quot;在注释中也开启补全
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+&quot;字符串中也开启补全
+let g:ycm_complete_in_strings = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+&quot;开启基于tag的补全，可以在这之后添加需要的标签路径  
+let g:ycm_collect_identifiers_from_tags_files = 1
+&quot;开始补全的字符数
+let g:ycm_min_num_of_chars_for_completion = 2
+&quot;补全后自动关闭预览窗口
+let g:ycm_autoclose_preview_window_after_completion = 1
+&quot;禁止缓存匹配项,每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+&quot;离开插入模式后自动关闭预览窗口
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+&quot;语法关键字补全
+let g:ycm_seed_identifiers_with_syntax = 1  
+&quot;整合UltiSnips的提示
+let g:ycm_use_ultisnips_completer = 1 
+&quot;在实现和声明之间跳转,并分屏打开
+let g:ycm_goto_buffer_command = &#x27;horizontal-split&#x27;
+nnoremap &lt;Leader&gt;g :YcmCompleter GoTo&lt;CR&gt;
+&quot;与syntastic有冲突，建议关闭
+let g:ycm_show_diagnostics_ui = 0
+&quot;let g:ycm_error_symbol = &#x27;&gt;&gt;&#x27;
+&quot;let g:ycm_warning_symbol = &#x27;&gt;&gt;&#x27;
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_echo_current_diagnostic = 0</span></span></span></code></pre><div id="https://www.notion.so/bd001a4e7a35428abc18855e38bd1645" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">这样打开vim编写一个</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">*.c</code></span><span class="SemanticString">c语言文件，有自动补全，但貌似不完整，比如说：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">#include&lt;stdi</code></span><span class="SemanticString">被输入时，并不弹出</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">stdio.h</code></span><span class="SemanticString">补全。解决方案：
+修改用户目录下的</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">.ycm_extra_conf.py</code></span><span class="SemanticString">，在</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">flags=[</code></span><span class="SemanticString">里添加</span></span></p></div><pre id="https://www.notion.so/a346758b240649e5873cb4fd6a32efc1" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>&#x27;-x&#x27;,
+&#x27;c++&#x27;,
+&#x27;-isystem&#x27;,
+&#x27;D:/01DevelopToos/msys64/mingw64/include/c++/8.3.0&#x27;,
+&#x27;c&#x27;,	#指定c语言
+&#x27;-isystem&#x27;,
+&#x27;E:\\DevelopTools/msys2/mingw64/x86_64-w64-mingw32/include&#x27;,	#头文件包含</span></span></span></code></pre><div id="https://www.notion.so/309d51e5451f47d3b6ff9215231c446d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">关于</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">.ycm_extra_conf.py</code></span><span class="SemanticString">脚本配置可参考:</span></span></p></div><div id="https://www.notion.so/f470717bd0b04acfb2db9bae19579324" class="Bookmark"><a href="https://www.jianshu.com/p/5aaae8f036c1"><h5 class="Bookmark__Title">为YCM配置ycm_extra_conf.py脚本</h5><p class="Bookmark__Desc">YCM应该是vim补全的标配了，关于配置可以直接阅读官方README文件，写得十分详细，但是需要点耐心。 我之前写过 Ubuntu 16.04 64位安装YouCompleteMe，主要针对的是 apt-get 安装的vim版本不支持YCM的python引擎问题，所以得手动编译vim源码。不过关于YCM的配置文件很多都是直接照抄的，有些用法没有理解，最近想要看看开源代码，由于include的头文件很多都把项目目录作为包含目录，而YCM配置文件缺只使用了系统目录，所以无法进行代码跳转和补全。 YCM配置文件的路径在.vimrc文件中定义，比如我的配置是 let g:ycm_global_ycm_extra_conf=&#x27;~/.ycm_extra_conf.py&#x27; 用的默认命名 ycm_extra_conf.py，直接扔到了用户主目录下，修改文件名和路径都是可以的。该配置文件的核心就是修改 flags 变量。 flags = [ &#x27;-Wall&#x27;, &#x27;-Wextra&#x27;, &#x27;-Werror&#x27;, &#x27;-Wno-long-long&#x27;, &#x27;-Wno-variadic-macros&#x27;, &#x27;-fexceptions&#x27;, &#x27;-DNDEBUG&#x27;, &#x27;-std=c++11&#x27;, &#x27;-x&#x27;, &#x27;c++&#x27;, &#x27;-I&#x27;, &#x27;/usr/include&#x27;, &#x27;-isystem&#x27;, &#x27;/usr/lib/gcc/x86_64-linux-gnu/5/include&#x27;, &#x27;-isystem&#x27;, &#x27;/usr/include/x86_64-linux-gnu&#x27;, &#x27;-isystem&#x27; &#x27;/usr/include/c++/5&#x27;, &#x27;-isystem&#x27;, &#x27;/usr/include/c++/5/bits&#x27; ] 可以看到 flags是一个列表，参数是和gcc的参数一致。 比如对下面的示例项目 $ tree sample/ sample/ ├── include │ └── foo.h └── src └── main.cc 其中 main.cc的include代码如下 可以发现vim提示foo.h无法找到，但是我们可以这样编译该文件 g++ main.cc -isystem $HOME/sample/include 也可以用下列编译方式 g++ main.cc -I $HOME/sample/include 用 man gcc查看手册，找到-isystem 的说明 -isystem dir Search dir for header files, after all directories specified by -I but before the standard system directories.</p><p class="Bookmark__Link">https://www.jianshu.com/p/5aaae8f036c1</p></a></div><div id="https://www.notion.so/07e0af351b7447a1bec2dd6cae765434" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">参考文章：</strong></span><span class="SemanticString">
+1.</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="http://www.cnblogs.com/tracyone/p/4735411.html">http://www.cnblogs.com/tracyone/p/4735411.html</a></span><span class="SemanticString">
+2.</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://blog.csdn.net/beichen2012/article/details/52763491">https://blog.csdn.net/beichen2012/article/details/52763491</a></span><span class="SemanticString">
+3.</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://blog.csdn.net/mergerly/article/details/51684155">https://blog.csdn.net/mergerly/article/details/51684155</a></span><span class="SemanticString">
+4.</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://www.jianshu.com/p/5aaae8f036c1">https://www.jianshu.com/p/5aaae8f036c1</a></span></span></p></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Linux下vim的配置">
+    <meta property="og:type" content="blog">
+  <title>Linux下vim的配置</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Icon"><span>📑</span></span>
+            <span class="Header__Title">Linux下vim的配置</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Wed, Apr 25, 2018</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--yellow">
+        <a href="tag/vim.html">vim</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/8c24a97b6c1148c384df4cb1961f58bc" class="PageRoot"><ul id="https://www.notion.so/48fc24c5db324fecaa8b3a4a4ea4baf9" class="ColorfulBlock ColorfulBlock--ColorGray TableOfContents"><li class="TableOfContents__Item"><a href="#https://www.notion.so/71eec5048e7641a198df2d907d268c9e"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">VUNDLE[插件管理]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/3e63c172e4644fd29871220bf22f640e"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">ale[语法检查]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/401f10ee58444aa4b7218bfc2f2f934c"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">YouCompeleteMe[代码补全]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/76eb2a873cae42b78cd56f3ba1b1fe21"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">Winmanager+Taglist[文件管理器-Tagbar&amp;&amp;NerdTree替代方案]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/a295e538cb9b4484b1450321fdad8be9"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">airline[状态栏-Powerline替代方案]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/6acca541fd7644589ea9b3397557be72"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">monokai主题</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/bdcb2c11f47641028f3be500f037e50d"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">vim-autoformat[代码智能缩进]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/10e0e031cbd94c2592e7acf45f37c4b6"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">Indentline[缩进指示]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/4d33a73cf2dd4a5da7a410a67e298e5f"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">auto-pairs[括号补全]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/32971e3171684a0188f063d4e71b0cb0"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">ctrlp[Ctrl+p搜索文件]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/aa165f6b138d468da80b4e68cd868169"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">MATCHIT[%成对标签跳转]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/14b3c00d38464a70b5353583ab089865"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">vim的markdown</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/938b423b7bda4dfda746aca4c1a3d494"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">Conque-Shell[嵌进vim的终端]</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/e98dba98175a48fa85b191f9b91f570b"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">输入法伴随模式自动切换</span></span></div></a></li></ul><div id="https://www.notion.so/22a2756610364d87bf930c8058a9867c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">以下内容是按照本人多次重装系统后重新配置vim的顺序排列，纯属个人习惯。下面列出插件的安装仓库地址，配置见文尾我的参考配置，对于复杂的插件，我已附上参考链接。</span></span></p></div><h1 id="https://www.notion.so/71eec5048e7641a198df2d907d268c9e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/71eec5048e7641a198df2d907d268c9e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">VUNDLE[插件管理]</span></span></h1><pre id="https://www.notion.so/c2ac3256ca2e4c47ae8dc9653169b868" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">git</span> clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</span></span></span></code></pre><div id="https://www.notion.so/61d875d3dcb24828b7281959015f026e" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在.vimrc中加入/修改/删除自己需要的插件配置</span></span></p></div><pre id="https://www.notion.so/2ed21fbbdb0d41daabd8a4506a563987" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token builtin class-name">set</span> nocompatible              <span class="token string">" 去除VI一致性
+filetype off                  
+set rtp+=~/.vim/bundle/Vundle.vim	"</span> 设置包括vundle和初始化相关的runtime path
+call vundle<span class="token comment">#begin()</span>
+Plugin <span class="token string">'VundleVim/Vundle.vim'</span>	<span class="token string">" 让vundle管理插件版本,必须
+
+call vundle#end()
+filetype plugin indent on    "</span> 加载vim自带和插件相应的语法和文件类型相关脚本</span></span></span></code></pre><div id="https://www.notion.so/eb931773852b43b1af95d2a54b4a170d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">详情可参考:</span></span></p></div><div id="https://www.notion.so/9fc831306b274fcc9dd8b59907a1bdf2" class="Bookmark"><a href="https://blog.csdn.net/zhangpower1993/article/details/52184581"><p class="Bookmark__Link">https://blog.csdn.net/zhangpower1993/article/details/52184581</p></a></div><h1 id="https://www.notion.so/3e63c172e4644fd29871220bf22f640e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/3e63c172e4644fd29871220bf22f640e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">ale[语法检查]</span></span></h1><pre id="https://www.notion.so/b9609b7a25ba4976892ef6dcf2ddf394" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'w0rp/ale'</span></span></span></span></code></pre><div id="https://www.notion.so/4525eb2fd912473ab84b17830982959d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">使用前安装pylint、clang</span></span></p></div><pre id="https://www.notion.so/7c0e0dd0076d4ed8a0f4a614231004b3" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">sudo</span> pacman -S clang
+<span class="token function">sudo</span> pip <span class="token function">install</span> pylint</span></span></span></code></pre><div id="https://www.notion.so/33e2be97a7284b42a06beb37b0f428b7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">详情可参考:</span></span></p></div><div id="https://www.notion.so/fe9cd144922e4098b7c8fdd0e971b3be" class="Bookmark"><a href="https://blog.csdn.net/Demorngel/article/details/69052789"><p class="Bookmark__Link">https://blog.csdn.net/Demorngel/article/details/69052789</p></a></div><h1 id="https://www.notion.so/401f10ee58444aa4b7218bfc2f2f934c" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/401f10ee58444aa4b7218bfc2f2f934c"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">YouCompeleteMe[代码补全]</span></span></h1><pre id="https://www.notion.so/95cfde8bd582472ab86a85b563a573ad" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'Valloric/YouCompleteMe'</span></span></span></span></code></pre><div id="https://www.notion.so/72c1e612fc9b4a098ea1c3b37a489497" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后，</span></span></p></div><pre id="https://www.notion.so/24fb3df7cee149e0a7f5e4059bc0ec84" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token builtin class-name">cd</span> ~/.vim/bundle/YouCompleteMe
+./install.py --clang-completer
+<span class="token function">cp</span> third_party/ycmd/examples/.ycm_extra_conf.py ~/</span></span></span></code></pre><div id="https://www.notion.so/8dc404588572499e8c2c4f4941af910c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">详情见:</span></span></p></div><div id="https://www.notion.so/c8fd266ed04e480c89539b1f3906adbb" class="Bookmark"><a href="https://blog.csdn.net/demorngel/article/details/69054982"><h5 class="Bookmark__Title">Vim插件之YouCompleteMe_Python_Sorel的博客-CSDN博客</h5><p class="Bookmark__Desc">YouCompleteMe，Vim的智能补全插件，能提供不逊于大型IDE的补全体验，安装这个插件需要先安装 python-pil的包（有的发行版上可能没有这个包,可以试试搜索 python-pillow），如果不事先解决这个问题的话，安装的时候就会提示 No module names future,解决方法如下 $ sudo aptitude install python-pil python3-pil 如果仍然不能解决的话，就在终端使用 pip 解决 $ sudo pip install future 此外有时也会提示 No module names frozendict这时用上面的方法继续用pip安装上frozendict模块即可。 安装完成ycm以后需要编译出库才能正常使用，而要编译出库则需要python开发库的支持，在终端执行 $ sudo aptitude install python-dev python3-dev 做完这些准备工作以后就可以开始编译了，ycm还额外支持 C、C++、C#、go、typescript、javascript、rust 等语言的补全，这里以添加C家族、Java和golang的支持为例，编译方法如下，其他语言的请参考官网的说明 编译完成以后再把.ycm_extra_conf.py复制到~目录 最后，ycm的配置如下 &quot;YouCompleteMe &quot;配置默认文件路径 let g:ycm_global_ycm_extra_conf = &#x27;~/.ycm_extra_conf.py&#x27; &quot;打开vim时不再询问是否加载ycm_extra_conf.py配置 let g:ycm_confirm_extra_conf = 0 set</p><p class="Bookmark__Link">https://blog.csdn.net/demorngel/article/details/69054982</p></a></div><h1 id="https://www.notion.so/76eb2a873cae42b78cd56f3ba1b1fe21" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/76eb2a873cae42b78cd56f3ba1b1fe21"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Winmanager+Taglist[文件管理器-Tagbar&amp;&amp;NerdTree替代方案]</span></span></h1><div id="https://www.notion.so/39ba3ee4396c424a8b61c3ad7c94e9f6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Winmanager与taglist的结合完全可以替代Tagbar和Nerdtree，个人爱好。</span></span></p></div><pre id="https://www.notion.so/330d64225dbb4d3bb5762608751b62d6" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'vim-scripts/winmanager'</span>
+Plugin <span class="token string">'vim-scripts/taglist.vim'</span></span></span></span></code></pre><div id="https://www.notion.so/0941d499c40949b7bb650095dcf652bf" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">可参考:</span></span></p></div><div id="https://www.notion.so/64f3c8f385b449a9bf887f0e52b98971" class="Bookmark"><a href="https://www.cnblogs.com/feichexia/archive/2012/11/06/vim_WinManager.html"><h5 class="Bookmark__Title">Vim试水之三：winmanager（文件管理器）安装</h5><p class="Bookmark__Desc">http://www.vim.org/scripts/script.php?script_id=95 2、解压后得到两个文件夹plugin和doc，将它们拷贝到类似C:\Program Files\Vim\vim73目录下，与那个目录下已有的plugin和doc合并 3、修改_vimrc文件，增加以下配置： &quot; 设置winmanager &quot; 设置界面分割 let g:winManagerWindowLayout = &quot;TagList|FileExplorer&quot; &quot;设置winmanager的宽度，默认为25 let g:winManagerWidth = 30 &quot;定义打开关闭winmanager快捷键为F8 nmap :WMToggle &quot;在进入vim时自动打开winmanager let g:AutoOpenWinManager = 1 4、打开某个文件夹下的某个文件（最好文件夹下有多个文件，便于观察效果），按F8，出现下图，红色方框标记的就是winmanger区域了： 上图显示D:/js/目录下有tags、test.html、test.html~这么几个文件，你可以在这里切换文件进行编辑。 要隐藏winmanager窗口也很简单，再按下F8即可 5、最后一个我遇到的问题 我在自己的PC上安装没有任何问题，但是在公司的电脑上安装后就出不来效果。最后发现可能是F8按键冲突了。这时你可以用下面的命令，和F8效果是一样的：</p><p class="Bookmark__Link">https://www.cnblogs.com/feichexia/archive/2012/11/06/vim_WinManager.html</p></a></div><h1 id="https://www.notion.so/a295e538cb9b4484b1450321fdad8be9" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/a295e538cb9b4484b1450321fdad8be9"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">airline[状态栏-Powerline替代方案]</span></span></h1><div id="https://www.notion.so/8bc0eaa428574871a21c7eb957982898" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">据说pwerline已停止开发，并且airline支持标签展示，个人后者更好用。</span></span></p></div><pre id="https://www.notion.so/9d0bb024b498421aabf4971649b57069" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'vim-airline/vim-airline'</span>
+Plugin <span class="token string">'vim-airline/vim-airline-themes'</span></span></span></span></code></pre><div id="https://www.notion.so/4150f006af394da58d48e3efdef6fc3a" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">若需要powerline可参见:</span></span></p></div><div id="https://www.notion.so/9c45f715fec04c7d82d4a36c0280b979" class="Bookmark"><a href="https://linux.cn/article-8651-1.html"><h5 class="Bookmark__Title">桌面应用|Powerline：Vim 和 Bash 中的一个强大状态栏插件</h5><p class="Bookmark__Desc">Powerline 是 vim、zsh、bash、tmux、IPython、Awesome、bar、fish、lemonbar、pdb、rc、shell、tcsh、wm、i3 和 Qtil 中的一个状态栏插件。它给程序提供了状态栏，并使程序更好看。它用 Python 写成。 它是可扩展的并且功能丰富，它用 Python 写成，非常轻便不需要任何第三方的依赖，只需要一个 Python 解释器。 它的稳定以及可测试的代码库经过完整的测试，并且在 Python 2.6+ 和 Python 3 中工作良好。 最初该状态栏只在 vim 中可用，随后项目进化为许多 Linux 程序如 zsh、bash、tmux、IPython、Awesome、i3 和 Qtil 提供状态栏。 其配置以及配色方案用 JSON 写成。它是一种标准简易的文件格式，可以让用户配置 Powerline 支持的程序。 快速并且轻量级，支持守护进程可以提供更好的性能。 确保你的系统有下面预先要求的包。如果没有，在安装 powerline 之前先安装它们。 对于 Debian 用户，使用 APT 包管理器或者 Apt-Get 包管理器 安装需要的包。 $ sudo apt-get install</p><p class="Bookmark__Link">https://linux.cn/article-8651-1.html</p></a></div><h1 id="https://www.notion.so/6acca541fd7644589ea9b3397557be72" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/6acca541fd7644589ea9b3397557be72"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">monokai主题</span></span></h1><div id="https://www.notion.so/37f93fccccd44f2a87f04b4a193d8671" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">个人觉得monokai不错，其他主题类似安装，</span></span></p></div><pre id="https://www.notion.so/fad381ccf2c248f5ac96cae02026acc1" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'sickill/vim-monokai'</span>
+"Plugin <span class="token string">'altercation/vim-colors-solarized'</span></span></span></span></code></pre><h1 id="https://www.notion.so/bdcb2c11f47641028f3be500f037e50d" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/bdcb2c11f47641028f3be500f037e50d"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">vim-autoformat[代码智能缩进]</span></span></h1><pre id="https://www.notion.so/67dacb38f747471aacf1e58df7e97609" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'Chiel92/vim-autoformat'</span></span></span></span></code></pre><div id="https://www.notion.so/dd7895f39ef249939060c6dfbc27dfc0" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">我对C/C++以及python有智能缩进需求，所以安装clang、yapf、autopep8</span></span></p></div><pre id="https://www.notion.so/eaf2414fafa646e08adeb43b509f957c" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">sudo</span> pacman -S clang autopep8
+<span class="token function">sudo</span> pip <span class="token function">install</span> autopep8</span></span></span></code></pre><div id="https://www.notion.so/4d739cf0804346eabe92e3af2aadb2e5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Clang-format配置文件.clang-format:</span></span></p></div><pre id="https://www.notion.so/130e588dfeeb4dee841c1d5ddaa4bcf3" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>---
+BasedOnStyle: Google
+IndentWidth: <span class="token string">'4'</span>
+TabWidth: <span class="token string">'4'</span>
+UseTab: Always
+
+<span class="token punctuation">..</span>.</span></span></span></code></pre><div id="https://www.notion.so/0f1ca00e23754be6b1179be108e058c4" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">vim中对应配置：</span></span></p></div><pre id="https://www.notion.so/adb90e6cdfb648288d9b520f9aa679c8" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token string">" auto-format
+"</span>   F7自动格式化代码并保存
+noremap <span class="token operator">&lt;</span>C-s<span class="token operator">></span> :Autoformat<span class="token operator">&lt;</span>CR<span class="token operator">></span>:w<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+noremap <span class="token operator">&lt;</span>F<span class="token operator"><span class="token file-descriptor important">7</span>></span> :Autoformat<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+<span class="token string">"au BufWrite *.py :Autoformat
+"</span>au BufWrite *.c :Autoformat
+<span class="token string">"au BufWrite *.cpp :Autoformat
+let g:autoformat_verbosemode=1
+let g:formatdef_google = '"</span>clang-format  -assume-filename<span class="token operator">=</span>/home/julian -style<span class="token operator">=</span>file"<span class="token string">'
+let g:formatters_c = ['</span>google<span class="token string">']
+let g:formatters_cpp = ['</span>google<span class="token string">']
+let g:formatter_yapf_style = '</span>pep8'</span></span></span></code></pre><div id="https://www.notion.so/f41c70233e934ccd8010841b6979346c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">参考：</span></span></p></div><div id="https://www.notion.so/d593b75ac3ea4d709109e7c4af82b312" class="Bookmark"><a href="https://blog.csdn.net/Demorngel/article/details/69053613"><h5 class="Bookmark__Title">Vim插件之vim-autoformat_Python_Sorel的博客-CSDN博客</h5><p class="Bookmark__Desc">vim-autoformat是Vim的一款自动化格式代码工具，同类软件还有 vim-clang-format 和Google开发的 codefmt等，不过这些都只是一个框架，要使用它们还需要相应语言的格式化工具，对于 vim-autoformat这里推荐几个常用的工具，分别是 astyle（支持C, C++, C++/CLI, Objective‑C, C#和Java）,clang-format（支持C, C++,和Objective-C ）,python-pep8,python3-pep8,python-autopep8和yapf（Google开发的Python格式化工具）,对于Debian系在终端执行下面命令即可完成安装 $ sudo aptitude install astyle clang-format python-pep8 python3-pep8 python-autopep8 yapf 默认情况下，它会使用Google的风格来格式化C家族的代码，对于Python则使用PEP8的风格，配置如下 如果不想每次都按F5格式化代码，希望能在保存时自动格式化或者针对某种语言自动格式化，可以这样设置 &quot;自动格式化代码，针对所有支持的文件 au BufWrite * :Autoformat &quot;自动格式化python代码 &quot;au BufWrite *.py :Autoformat 在安装了yapf以后，还可以自定义python格式化的风格， &quot;默认情况下是pep8，还可以选择google,facebook和chromium let g:formatter_yapf_style = &#x27;pep8&#x27; 更进一步的，你还可以针对某种语言指定特定的格式化工具和相应的参数，比如设定以 allman(ansi)的风格格式化C/C++代码同时在操作符两边加入空格(即--pad-oper 参数)，可以这样写 let g:formatdef_allman = &#x27;&quot;astyle --style=allman --pad-oper&quot;&#x27; let g:formatters_cpp = [&#x27;allman&#x27;] let g:formatters_c = [&#x27;allman&#x27;] 如果还需要对其他语言进行格式化或者修改配置可以参考github主页上的说明。 当然，格式化代码也不一定非要安装插件才能实现，因为Vim可以执行外部命令，因此你也可以写一个函数调用外部工具来实现代码格式化，比如下面就用函数调用 astyle和autopep8 来格式化代码 map :call FormatCode() func!</p><p class="Bookmark__Link">https://blog.csdn.net/Demorngel/article/details/69053613</p></a></div><h1 id="https://www.notion.so/10e0e031cbd94c2592e7acf45f37c4b6" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/10e0e031cbd94c2592e7acf45f37c4b6"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Indentline[缩进指示]</span></span></h1><pre id="https://www.notion.so/9b0a99253f4f429181564fe8c18ac473" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'Yggdroot/indentLine'</span></span></span></span></code></pre><h1 id="https://www.notion.so/4d33a73cf2dd4a5da7a410a67e298e5f" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/4d33a73cf2dd4a5da7a410a67e298e5f"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">auto-pairs[括号补全]</span></span></h1><pre id="https://www.notion.so/2fd4c54cee8f47408f95a27c2803c1ac" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'jiangmiao/auto-pairs'</span></span></span></span></code></pre><h1 id="https://www.notion.so/32971e3171684a0188f063d4e71b0cb0" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/32971e3171684a0188f063d4e71b0cb0"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">ctrlp[Ctrl+p搜索文件]</span></span></h1><pre id="https://www.notion.so/fa66a45b7870461ca48aac5c94f905c9" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'kien/ctrlp.vim'</span></span></span></span></code></pre><h1 id="https://www.notion.so/aa165f6b138d468da80b4e68cd868169" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/aa165f6b138d468da80b4e68cd868169"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">MATCHIT[%成对标签跳转]</span></span></h1><pre id="https://www.notion.so/2eb45f704db64a728bebf04230934483" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'vim-scripts/matchit.zip'</span></span></span></span></code></pre><h1 id="https://www.notion.so/14b3c00d38464a70b5353583ab089865" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/14b3c00d38464a70b5353583ab089865"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">vim的markdown</span></span></h1><pre id="https://www.notion.so/47041e592d8a40188e22fce9afcf55f0" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'iamcco/markdown-preview.vim'</span> <span class="token string">"MarkDown Preview
+Plugin 'iamcco/mathjax-support-for-mkdp' "</span>support mathjax</span></span></span></code></pre><h1 id="https://www.notion.so/938b423b7bda4dfda746aca4c1a3d494" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/938b423b7bda4dfda746aca4c1a3d494"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Conque-Shell[嵌进vim的终端]</span></span></h1><pre id="https://www.notion.so/6b01a141f8ed466aae4c1d1ba44edf16" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Plugin <span class="token string">'oplatek/Conque-Shell'</span></span></span></span></code></pre><h1 id="https://www.notion.so/e98dba98175a48fa85b191f9b91f570b" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/e98dba98175a48fa85b191f9b91f570b"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">输入法伴随模式自动切换</span></span></h1><div id="https://www.notion.so/f014510913e84be485a6006ccd03df92" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在 ~/.vimrc 添加如下代码。以退出插入模式时，自动关闭 Fcitx, 反之则反：</span></span></p></div><pre id="https://www.notion.so/8c79fe1c65d043a283db40271a3e3600" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token string">"##### auto fcitx  ###########
+let g:input_toggle = 1
+function! Fcitx2en()
+   let s:input_status = system("</span>fcitx-remote<span class="token string">")
+   if s:input_status == 2
+      let g:input_toggle = 1
+      let l:a = system("</span>fcitx-remote -c<span class="token string">")
+   endif
+endfunction
+
+function! Fcitx2zh()
+   let s:input_status = system("</span>fcitx-remote<span class="token string">")
+   if s:input_status != 2 &amp;&amp; g:input_toggle == 1
+      let l:a = system("</span>fcitx-remote -o<span class="token string">")
+      let g:input_toggle = 0
+   endif
+endfunction
+
+set ttimeoutlen=150
+"</span>退出插入模式
+autocmd InsertLeave * call Fcitx2en<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token string">"进入插入模式
+autocmd InsertEnter * call Fcitx2zh()
+"</span>#<span class="token comment">#### auto fcitx end ######</span></span></span></span></code></pre><div id="https://www.notion.so/09dbf1eaa420479c9337604fa9e49b03" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">注意: 由于要调用外部程序，这将明显拖慢会反复进出插入模式的映射。建议改写相关映射，用带 Python 支持的 Vim 加以配合 fcitx.vim 亦可改善效率。
+另外应注意你输入发中英文的顺序，否则可能使ESC后被切换成中文</span></span></p></div><div id="https://www.notion.so/89ed708afaa44200a1e791182132b332" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">如果对某个插件有疑问，可浏览插件的github项目地址。</span></span></p></div><div id="https://www.notion.so/8f000e6e91a24d2eb892d21a9a009815" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/d3fba04b046d49eabec76bd1f8d4f521" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">附上我的.vimrc：</span></span></p></div><pre id="https://www.notion.so/264122b80527472d99316b70ae10bd76" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token builtin class-name">set</span> nocompatible              <span class="token string">" 去除VI一致性
+filetype off                  
+set rtp+=~/.vim/bundle/Vundle.vim	"</span> 设置包括vundle和初始化相关的runtime path
+call vundle<span class="token comment">#begin()</span>
+Plugin <span class="token string">'VundleVim/Vundle.vim'</span>	<span class="token string">" 让vundle管理插件版本,必须
+Plugin 'w0rp/ale'   "</span>ale语法检查
+Plugin <span class="token string">'Valloric/YouCompleteMe'</span> <span class="token string">"YCM代码补全
+Plugin 'vim-scripts/winmanager' "</span>文件管理器
+Plugin <span class="token string">'vim-scripts/taglist.vim'</span>    <span class="token string">"标签视图
+Plugin 'sickill/vim-monokai'    "</span>主题
+Plugin <span class="token string">'vim-airline/vim-airline'</span>    <span class="token string">"airline 状态栏
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Chiel92/vim-autoformat' "</span>代码格式化插件
+Plugin <span class="token string">'Yggdroot/indentLine'</span>    <span class="token string">"缩进指示线
+Plugin 'kien/ctrlp.vim'     "</span>文件搜索
+Plugin <span class="token string">'vim-scripts/matchit.zip'</span>    <span class="token string">"标签匹配跳转
+Plugin 'iamcco/markdown-preview.vim' "</span>MarkDown预览
+Plugin <span class="token string">'iamcco/mathjax-support-for-mkdp'</span> <span class="token string">"support mathjax
+Plugin 'jiangmiao/auto-pairs'       "</span>括号补全、引号补全
+Plugin <span class="token string">'oplatek/Conque-Shell'</span> <span class="token string">"the bash inside vim
+Plugin 'acarapetis/vim-colors-github' "</span><span class="token function">vim</span> theme
+call vundle<span class="token comment">#end()</span>
+filetype plugin indent on    <span class="token string">" 加载vim自带和插件相应的语法和文件类型相关脚本
+
+"</span> ALE
+<span class="token string">"使用键【\】作为leader
+let mapleader="</span><span class="token punctuation">\</span><span class="token punctuation">\</span>" 
+<span class="token string">" 设置状态栏
+set statusline=%F%m%r%h%w\ [FORMAT=%{&amp;ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(<span class="token entity" title="\&quot;">\"</span>%d/%m/%y\ -\ %H:%M<span class="token entity" title="\&quot;">\"</span>)}\ %{ALEGetStatusLine()}
+"</span>始终开启标志列
+<span class="token string">"let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
+"</span>自定义error和warning图标
+<span class="token builtin class-name">let</span> g:ale_sign_error <span class="token operator">=</span> <span class="token string">'x'</span>
+<span class="token builtin class-name">let</span> g:ale_sign_warning <span class="token operator">=</span> <span class="token string">'!'</span>
+<span class="token string">"在vim自带的状态栏中整合ale
+let g:ale_statusline_format = ['x %d', '! %d', '✔ OK']
+"</span>显示Linter名称,出错或警告等相关信息
+<span class="token builtin class-name">let</span> g:ale_echo_msg_error_str <span class="token operator">=</span> <span class="token string">'x'</span>
+<span class="token builtin class-name">let</span> g:ale_echo_msg_warning_str <span class="token operator">=</span> <span class="token string">'!'</span>
+<span class="token builtin class-name">let</span> g:ale_echo_msg_format <span class="token operator">=</span> <span class="token string">'[%linter%] %s [%severity%]'</span>
+<span class="token string">"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+nmap sp &lt;Plug>(ale_previous_wrap)
+nmap sn &lt;Plug>(ale_next_wrap)
+"</span><span class="token operator">&lt;</span>Leader<span class="token operator">></span>s触发/关闭语法检查
+nmap <span class="token operator">&lt;</span>Leader<span class="token operator">></span>s :ALEToggle<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+<span class="token string">"&lt;Leader>d查看错误或警告的详细信息
+nmap &lt;Leader>d :ALEDetail&lt;CR> 
+"</span>文件内容发生变化时不进行检查
+<span class="token builtin class-name">let</span> g:ale_lint_on_text_changed <span class="token operator">=</span> <span class="token string">'never'</span>
+<span class="token string">"打开文件时不进行检查
+let g:ale_lint_on_enter = 0
+"</span>使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
+<span class="token builtin class-name">let</span> g:ale_linters <span class="token operator">=</span> <span class="token punctuation">{</span>
+<span class="token punctuation">\</span>   <span class="token string">'c++'</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">'clang'</span><span class="token punctuation">]</span>,
+<span class="token punctuation">\</span>   <span class="token string">'c'</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">'clang'</span><span class="token punctuation">]</span>,
+<span class="token punctuation">\</span>   <span class="token string">'python'</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">'pylint'</span><span class="token punctuation">]</span>,
+<span class="token punctuation">\</span><span class="token punctuation">}</span>
+
+<span class="token string">" YouCompleteMe
+"</span>配置默认文件路径
+<span class="token builtin class-name">let</span> g:ycm_global_ycm_extra_conf <span class="token operator">=</span> <span class="token string">'~/.ycm_extra_conf.py'</span>
+<span class="token string">"打开vim时不再询问是否加载ycm_extra_conf.py配置
+let g:ycm_confirm_extra_conf = 0
+set completeopt=longest,menu
+"</span>自动开启语义补全
+<span class="token builtin class-name">let</span> g:ycm_seed_identifiers_with_syntax <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token string">"在注释中也开启补全
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+"</span>字符串中也开启补全
+<span class="token builtin class-name">let</span> g:ycm_complete_in_strings <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token builtin class-name">let</span> g:ycm_collect_identifiers_from_tags_files <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token string">"开启基于tag的补全，可以在这之后添加需要的标签路径  
+let g:ycm_collect_identifiers_from_tags_files = 1
+"</span>开始补全的字符数
+<span class="token builtin class-name">let</span> g:ycm_min_num_of_chars_for_completion <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token string">"补全后自动关闭预览窗口
+let g:ycm_autoclose_preview_window_after_completion = 1
+"</span>禁止缓存匹配项,每次都重新生成匹配项
+<span class="token builtin class-name">let</span> g:ycm_cache_omnifunc<span class="token operator">=</span><span class="token number">0</span>
+<span class="token string">"离开插入模式后自动关闭预览窗口
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+"</span>语法关键字补全
+<span class="token builtin class-name">let</span> g:ycm_seed_identifiers_with_syntax <span class="token operator">=</span> <span class="token number">1</span>  
+<span class="token string">"整合UltiSnips的提示
+let g:ycm_use_ultisnips_completer = 1 
+"</span>在实现和声明之间跳转,并分屏打开
+<span class="token builtin class-name">let</span> g:ycm_goto_buffer_command <span class="token operator">=</span> <span class="token string">'horizontal-split'</span>
+nnoremap <span class="token operator">&lt;</span>Leader<span class="token operator">></span>g :YcmCompleter GoTo<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+<span class="token string">"与syntastic有冲突，建议关闭
+let g:ycm_show_diagnostics_ui = 0
+"</span><span class="token builtin class-name">let</span> g:ycm_error_symbol <span class="token operator">=</span> <span class="token string">'>>'</span>
+<span class="token string">"let g:ycm_warning_symbol = '>>'
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_echo_current_diagnostic = 0
+
+"</span> WinManager
+<span class="token builtin class-name">let</span> g:winManagerWindowLayout<span class="token operator">=</span><span class="token string">'FileExplorer|TagList'</span>
+<span class="token builtin class-name">let</span> g:AutoOpenWinManager <span class="token operator">=</span> <span class="token number">1</span>
+nmap wm :WMToggle <span class="token operator">&lt;</span>CR<span class="token operator">></span>
+
+<span class="token string">" Airline
+set t_Co=256
+set laststatus=2
+set lazyredraw
+let g:airline_theme="</span>molokai<span class="token string">"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#whitespace#enabled=0   "</span> 关闭空白符检测
+<span class="token builtin class-name">let</span> g:airline_powerline_fonts<span class="token operator">=</span><span class="token number">1</span> <span class="token string">" 使用powerline打过补丁的字体
+"</span><span class="token builtin class-name">let</span> g:airline_left_sep <span class="token operator">=</span> <span class="token string">'▶'</span>
+<span class="token string">"let g:airline_left_alt_sep = '❯'
+"</span><span class="token builtin class-name">let</span> g:airline_right_sep <span class="token operator">=</span> <span class="token string">'◀'</span>
+<span class="token keyword">if</span> <span class="token operator">!</span>exists<span class="token punctuation">(</span><span class="token string">'g:airline_symbols'</span><span class="token punctuation">)</span>
+    <span class="token builtin class-name">let</span> g:airline_symbols<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token builtin class-name">let</span> g:airline_symbols.linenr <span class="token operator">=</span> <span class="token string">'¶'</span>
+endif
+
+
+<span class="token string">" auto-format
+"</span>   F7自动格式化代码并保存
+noremap <span class="token operator">&lt;</span>C-s<span class="token operator">></span> :Autoformat<span class="token operator">&lt;</span>CR<span class="token operator">></span>:w<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+noremap <span class="token operator">&lt;</span>F<span class="token operator"><span class="token file-descriptor important">7</span>></span> :Autoformat<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+<span class="token string">"au BufWrite *.py :Autoformat
+"</span>au BufWrite *.c :Autoformat
+<span class="token string">"au BufWrite *.cpp :Autoformat
+let g:autoformat_verbosemode=1
+let g:formatdef_google = '"</span>clang-format  -assume-filename<span class="token operator">=</span>/home/julian -style<span class="token operator">=</span>file<span class="token string">"'
+let g:formatters_c = ['google']
+let g:formatters_cpp = ['google']
+let g:formatter_yapf_style = 'pep8'
+
+"</span> Indentline
+nmap de :IndentLinesToggle <span class="token operator">&lt;</span>CR<span class="token operator">></span>
+<span class="token builtin class-name">let</span> g:indentLine_char<span class="token operator">=</span><span class="token string">'┆'</span>
+<span class="token builtin class-name">let</span> g:indentLine_enabled <span class="token operator">=</span> <span class="token number">1</span>
+
+<span class="token string">" Ctrlp
+let g:ctrlp_cmd = 'CtrlP'
+"</span><span class="token operator">&lt;</span>Leader<span class="token operator">></span>f搜索MRU文件
+nmap <span class="token operator">&lt;</span>Leader<span class="token operator">></span>f :CtrlPMRUFiles<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+<span class="token string">"&lt;Leader>b显示缓冲区文件，并可通过序号进行跳转
+nmap &lt;Leader>b :CtrlPBuffer&lt;CR>
+"</span>设置搜索时忽略的文件
+<span class="token builtin class-name">let</span> g:ctrlp_custom_ignore <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">\</span> <span class="token string">'dir'</span><span class="token builtin class-name">:</span>  <span class="token string">'<span class="token entity" title="\v">\v</span>[\/]\.(git|hg|svn|rvm)$'</span>,
+    <span class="token punctuation">\</span> <span class="token string">'file'</span><span class="token builtin class-name">:</span> <span class="token string">'<span class="token entity" title="\v">\v</span>\.(exe|so|dll|zip|tar|tar.gz|pyc)$'</span>,
+    <span class="token punctuation">\</span> <span class="token punctuation">}</span>
+<span class="token builtin class-name">let</span> g:ctrlp_working_path_mode <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token builtin class-name">let</span> g:ctrlp_match_window_bottom <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token string">"修改QuickFix窗口显示的最大条目数
+let g:ctrlp_max_height = 15
+let g:ctrlp_match_window_reversed = 0
+"</span>设置MRU最大条目数为500
+<span class="token builtin class-name">let</span> g:ctrlp_mruf_max <span class="token operator">=</span> <span class="token number">500</span>
+<span class="token builtin class-name">let</span> g:ctrlp_follow_symlinks <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token string">"默认使用全路径搜索，置1后按文件名搜索，准确率会有所提高，可以用&lt;C-d>进行切换
+let g:ctrlp_by_filename = 1
+"</span>默认不使用正则表达式，置1改为默认使用正则表达式，可以用<span class="token operator">&lt;</span>C-r<span class="token operator">></span>进行切换
+<span class="token builtin class-name">let</span> g:ctrlp_regexp <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token string">"自定义搜索列表的提示符
+let g:ctrlp_line_prefix = '♪ '
+
+"</span> MarkDown Preview
+<span class="token builtin class-name">let</span> g:mkdp_path_to_chrome <span class="token operator">=</span> <span class="token string">""</span>
+<span class="token string">" path to the chrome or the command to open chrome(or other modern browsers)
+"</span> <span class="token keyword">if</span> set, g:mkdp_browserfunc would be ignored
+<span class="token builtin class-name">let</span> g:mkdp_browserfunc <span class="token operator">=</span> <span class="token string">'MKDP_browserfunc_default'</span>
+<span class="token string">" callback vim function to open browser, the only param is the url to open
+let g:mkdp_auto_start = 0
+"</span> <span class="token builtin class-name">set</span> to <span class="token number">1</span>, the <span class="token function">vim</span> will <span class="token function">open</span> the preview window once enter the markdown
+<span class="token string">" buffer
+let g:mkdp_auto_open = 0
+"</span> <span class="token builtin class-name">set</span> to <span class="token number">1</span>, the <span class="token function">vim</span> will auto <span class="token function">open</span> preview window when you edit the
+<span class="token string">" markdown file
+let g:mkdp_auto_close = 1
+"</span> <span class="token builtin class-name">set</span> to <span class="token number">1</span>, the <span class="token function">vim</span> will auto close current preview window when change
+<span class="token string">" from markdown buffer to another buffer
+let g:mkdp_refresh_slow = 0
+"</span> <span class="token builtin class-name">set</span> to <span class="token number">1</span>, the <span class="token function">vim</span> will just refresh markdown when save the buffer or
+<span class="token string">" leave from insert mode, default 0 is auto refresh markdown as you edit or
+"</span> move the cursor
+<span class="token builtin class-name">let</span> g:mkdp_command_for_global <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token string">" set to 1, the MarkdownPreview command can be use for all files,
+"</span> by default it just can be use <span class="token keyword">in</span> markdown <span class="token function">file</span>
+nmap <span class="token operator">&lt;</span>silent<span class="token operator">></span> <span class="token operator">&lt;</span>F<span class="token operator"><span class="token file-descriptor important">8</span>></span> <span class="token operator">&lt;</span>Plug<span class="token operator">></span>MarkdownPreview        <span class="token string">" for normal mode
+imap &lt;silent> &lt;F8> &lt;Plug>MarkdownPreview        "</span> <span class="token keyword">for</span> insert mode
+nmap <span class="token operator">&lt;</span>silent<span class="token operator">></span> <span class="token operator">&lt;</span>F<span class="token operator"><span class="token file-descriptor important">9</span>></span> <span class="token operator">&lt;</span>Plug<span class="token operator">></span>StopMarkdownPreview    <span class="token string">" for normal mode
+imap &lt;silent> &lt;F9> &lt;Plug>StopMarkdownPreview    "</span> <span class="token keyword">for</span> insert mode
+
+<span class="token string">" ConqueTerm
+let g:ConqueTerm_StartMessages = 0  "</span> disable the warnings caused by conque-shell
+nmap <span class="token operator">&lt;</span>Leader<span class="token operator">></span>c :ConqueTerm bash<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+<span class="token string">"other options
+"</span>:ConqueTermSplit :ConqueTermVSplit :ConqueTermTab
+
+
+<span class="token string">" Powerline
+"</span><span class="token builtin class-name">set</span>  <span class="token assign-left variable">rtp</span><span class="token operator">+=</span>/usr/lib/python3.7/site-packages/powerline/bindings/vim/
+<span class="token string">"set laststatus=2
+"</span><span class="token builtin class-name">set</span> <span class="token assign-left variable">t_Co</span><span class="token operator">=</span><span class="token number">256</span>
+
+<span class="token string">" auto run
+map &lt;F5> :call CompileRunGcc()&lt;CR>
+func! CompileRunGcc()
+    exec "</span>w<span class="token string">"
+    if &amp;filetype == 'c'
+        exec "</span><span class="token operator">!</span>g++ % -o %<span class="token operator">&lt;</span><span class="token string">"
+        exec "</span><span class="token operator">!</span>time ./%<span class="token operator">&lt;</span><span class="token string">"
+    elseif &amp;filetype == 'cpp'
+        exec "</span><span class="token operator">!</span>g++ % -o %<span class="token operator">&lt;</span><span class="token string">"
+        exec "</span><span class="token operator">!</span>time ./%<span class="token operator">&lt;</span><span class="token string">"
+    elseif &amp;filetype == 'java'
+        exec "</span><span class="token operator">!</span>javac %<span class="token string">"
+        exec "</span><span class="token operator">!</span>time java %<span class="token operator">&lt;</span><span class="token string">"
+    elseif &amp;filetype == 'sh'
+        :!time bash %
+    elseif &amp;filetype == 'python'
+        exec "</span><span class="token operator">!</span>time python %<span class="token string">"
+"</span>        <span class="token builtin class-name">exec</span> <span class="token string">"!time python3.6 %"</span>
+    elseif <span class="token operator">&amp;</span>filetype <span class="token operator">==</span> <span class="token string">'html'</span>
+        <span class="token builtin class-name">exec</span> <span class="token string">"!firefox % &amp;"</span>
+    elseif <span class="token operator">&amp;</span>filetype <span class="token operator">==</span> <span class="token string">'go'</span>
+        <span class="token builtin class-name">exec</span> <span class="token string">"!go build %&lt;"</span>
+        <span class="token builtin class-name">exec</span> <span class="token string">"!time go run %"</span>
+    elseif <span class="token operator">&amp;</span>filetype <span class="token operator">==</span> <span class="token string">'mkd'</span>
+        <span class="token builtin class-name">exec</span> <span class="token string">"!~/.vim/markdown.pl % > %.html &amp;"</span>
+        <span class="token builtin class-name">exec</span> <span class="token string">"!firefox %.html &amp;"</span>
+    endif
+endfunc
+
+<span class="token string">" 其他
+"</span> colorscheme monokai <span class="token string">"设置主题为monokai
+colorscheme github "</span>设置主题为github
+<span class="token string">" 设置字符编码                                                                
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese,cp936
+"</span> 语法高亮                                                         
+syntax on                                                          
+<span class="token string">" 检测文件类型                                                     
+filetype on                                                        
+"</span> 根据文件类型加载对应的插件                                       
+filetype plugin on                                                 
+<span class="token string">" 显示行号                                                      
+set number                                                      
+"</span> 在第64列显示竖线                                                      
+<span class="token string">" set cc=64                                                          
+"</span> 高亮显示当前行                                                   
+<span class="token builtin class-name">set</span> cursorline                                                     
+<span class="token string">" 设置各种缩进                                                     
+set tabstop=4                                                      
+set softtabstop=4                                                  
+set shiftwidth=4                                                   
+set autoindent                                                     
+set smartindent                                                    
+set cindent                                                        
+set hlsearch
+"</span>Code <span class="token function">fold</span>
+<span class="token builtin class-name">set</span> <span class="token assign-left variable">foldmethod</span><span class="token operator">=</span>indent
+<span class="token builtin class-name">set</span> <span class="token assign-left variable">foldlevelstart</span><span class="token operator">=</span><span class="token number">99</span>
+<span class="token string">" tab转换为空格                                                    
+set expandtab
+"</span> 将ESC键映射为两次k键 
+<span class="token string">"inoremap kk &lt;Esc> 
+
+"</span> 按F2或F3在打开的文件之间切换
+nnoremap <span class="token operator">&lt;</span>F<span class="token operator"><span class="token file-descriptor important">2</span>></span> :bn<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+nnoremap <span class="token operator">&lt;</span>F<span class="token operator"><span class="token file-descriptor important">3</span>></span> :bp<span class="token operator">&lt;</span>CR<span class="token operator">></span>
+nmap <span class="token function">wc</span> :bd <span class="token operator">&lt;</span>CR<span class="token operator">></span>    <span class="token string">"关闭当前标签
+
+"</span>eclim
+<span class="token string">"nmap &lt;C-o> :ProjectsTree &lt;CR>
+"</span>nmap <span class="token operator">&lt;</span>C-l<span class="token operator">></span> :ProjectList <span class="token operator">&lt;</span>CR<span class="token operator">></span>
+<span class="token string">"nmap &lt;C-n> :ProjectCreate ./ -n java &lt;CR>
+"</span><span class="token builtin class-name">let</span> g:EclimCompletionMethod <span class="token operator">=</span> <span class="token string">'omnifunc'</span></span></span></span></code></pre></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

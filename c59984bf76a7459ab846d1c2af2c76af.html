@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="ArchLinux配置samba共享文件夹到Windows虚拟机">
+    <meta property="og:type" content="blog">
+  <title>ArchLinux配置samba共享文件夹到Windows虚拟机</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Icon"><span>📑</span></span>
+            <span class="Header__Title">ArchLinux配置samba共享文件夹到Windows虚拟机</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Wed, Dec 26, 2018</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--yellow">
+        <a href="tag/Archlinux.html">Archlinux</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/c59984bf76a7459ab846d1c2af2c76af" class="PageRoot"><div id="https://www.notion.so/7fca193702bc4e62a753b460dcd54f70" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">2019-11-05: 也可以通过smb共享到安卓手机（如xplorer连接smba服务），iPad（如Documents连接smba服务）</span></span></p></div><h2 id="https://www.notion.so/e883d5fc81e44216ab8f567e1174b1f2" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/e883d5fc81e44216ab8f567e1174b1f2"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">安装samba</span></span></h2><pre id="https://www.notion.so/5ffb0c7feb7c4dafac6e17b7e436037d" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">sudo</span> pacman -S samba</span></span></span></code></pre><h2 id="https://www.notion.so/6291393ed57c4a92ae1f240de2a98b03" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/6291393ed57c4a92ae1f240de2a98b03"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">配置</span></span></h2><div id="https://www.notion.so/b4e813f723004840b87cd31e44c6596a" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">直接</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">sudo vim /etc/samba/smb.conf</code></span><span class="SemanticString">，新建并改为：</span></span></p></div><pre id="https://www.notion.so/d0f908fe847a4443abd47735d7998ab3" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>[global]
+   workgroup = WORKGROUP
+   dns proxy = no
+   log file = /var/log/samba/%m.log
+   max log size = 1000
+   client max protocol = NT1
+   server role = standalone server
+   passdb backend = tdbsam
+   obey pam restrictions = yes
+   unix password sync = yes
+   passwd program = /usr/bin/passwd %u
+   passwd chat = *New*UNIX*password* %n\\n *ReType*new*UNIX*password* %n\\n *passwd:*all*authentication*tokens*updated*successfully*
+   pam password change = yes
+   map to guest = Bad Password
+   usershare allow guests = yes
+   name resolve order = lmhosts bcast host wins
+   security = user
+   guest account = nobody
+   usershare path = /var/lib/samba/usershare
+   usershare max shares = 100
+   usershare owner only = yes
+   force create mode = 0070
+   force directory mode = 0070
+
+[Share]
+   comment = MShare Directories
+   path = &lt;共享路径&gt;本文设为：/home/julian/Documents
+   browseable = yes
+   read only = no
+   create mask = 0700
+   directory mask = 0700</span></span></span></code></pre><h2 id="https://www.notion.so/601c2cd75dcb4875a409617b37cce81b" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/601c2cd75dcb4875a409617b37cce81b"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">设定访问用户</span></span></h2><pre id="https://www.notion.so/aaeb475b6d7f44459a29a185528b4bad" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">sudo</span> <span class="token function">su</span>
+<span class="token function">mkdir</span> -p /var/lib/samba/usershare	<span class="token comment">#在 /var/lib/samba 添加 usershares 目录</span>
+<span class="token function">groupadd</span> sambashare	<span class="token comment">#建立 sambashare 用户组</span>
+<span class="token function">chown</span> root:sambashare /var/lib/samba/usershare	<span class="token comment">#将刚刚建立的文件夹的权限：拥有者更改为 root，群组更改为 sambashare：</span>
+<span class="token function">chmod</span> <span class="token number">1770</span> /var/lib/samba/usershare	<span class="token comment">#让 sambashare 群组中的用户拥有读取，写入和执行此文件夹中内容的权限</span>
+<span class="token function">usermod</span> -a -G sambashare your_username	<span class="token comment">#用户添加到群组 sambashare 中,your_username为实际的用户名（本文替换为julian）</span>
+smbpasswd -a your_username <span class="token comment">#添加用户</span>
+smbpasswd your_username	<span class="token comment">#设定用户密码</span>
+systemctl stop smb.service <span class="token comment">#重启 smb.service服务</span>
+systemctl start smb.service</span></span></span></code></pre><h2 id="https://www.notion.so/6a4262084f004b95bc78b875f4c17d71" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/6a4262084f004b95bc78b875f4c17d71"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">虚拟机连接</span></span></h2><div id="https://www.notion.so/6d298d17b72b4e819660d6c19fb264e6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">先查询Linux的ip，</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">ip a</code></span></span></p></div><pre id="https://www.notion.so/832c73a94b0f4fbda3f360656ce84a9a" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>$ <span class="token function">ip</span> a
+		……
+    inet <span class="token number">192.168</span>.x.xxx/24 brd <span class="token number">192.168</span>.2.255 scope global dynamic noprefixroute wlp2s0
+  	……</span></span></span></code></pre><div id="https://www.notion.so/37bd72868a6d4685821fa82c4e21525d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">记录ip，在Windows下打开计算机，此电脑右键添加映射网络驱动器。
+输入ip，点击完成后在输入设定的用户及密码即可。</span></span></p></div><div id="https://www.notion.so/60347688ebe84da5bbb9d9a8921cde35" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/37152ae8fcf74cc3bb0a0605aa591dcd" class="Image Image--Normal"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6f75b342-dc3d-4e6f-80c8-99f4f6bd40f4%2FUntitled.png?width=384&amp;table=block&amp;id=37152ae8-fcf7-4cc3-bb0a-0605aa591dcd"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6f75b342-dc3d-4e6f-80c8-99f4f6bd40f4%2FUntitled.png?width=384&amp;table=block&amp;id=37152ae8-fcf7-4cc3-bb0a-0605aa591dcd" style="width:384px"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/288491f14a8a4ab2b29b599d7b08fa20" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">参考文章:
+1.</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://wiki.archlinux.org/index.php/Samba_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">https://wiki.archlinux.org/index.php/Samba_(简体中文)</a></span><span class="SemanticString">
+2.</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://blog.csdn.net/JNU_kinke/article/details/36624681">https://blog.csdn.net/JNU_kinke/article/details/36624681</a></span></span></p></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

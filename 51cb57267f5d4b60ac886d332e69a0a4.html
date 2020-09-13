@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Linux下Vim源码编译安装">
+    <meta property="og:type" content="blog">
+  <title>Linux下Vim源码编译安装</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Icon"><span>📑</span></span>
+            <span class="Header__Title">Linux下Vim源码编译安装</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Tue, Apr 24, 2018</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--yellow">
+        <a href="tag/vim.html">vim</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/51cb57267f5d4b60ac886d332e69a0a4" class="PageRoot"><div id="https://www.notion.so/3b4bfa37ef574b3ab53f533433d8077c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">针对于Ubuntu，其他distributions应安装相应依赖，可略作参考。
+卸载自带的vim</span></span></p></div><pre id="https://www.notion.so/21563cf46f38483097f7760402557507" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">sudo</span> <span class="token function">apt-get</span> remove <span class="token function">vim</span>  
+<span class="token function">sudo</span> <span class="token function">apt-get</span> remove vim-runtime  
+<span class="token function">sudo</span> <span class="token function">apt-get</span> remove gvim  
+<span class="token function">sudo</span> <span class="token function">apt-get</span> remove vim-tiny  
+<span class="token function">sudo</span> <span class="token function">apt-get</span> remove vim-common  
+<span class="token function">sudo</span> <span class="token function">apt-get</span> remove vim-gui-common  </span></span></span></code></pre><div id="https://www.notion.so/00288dacb4ff4405bb594a626636ee51" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后再查看是否还有残留，若有便手动删除</span></span></p></div><pre id="https://www.notion.so/283d0e5ff11b4b8ebc996aa684ae23a8" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">which</span> <span class="token function">vim</span>
+dpkg -l<span class="token operator">|</span><span class="token function">grep</span> <span class="token function">vim</span></span></span></span></code></pre><div id="https://www.notion.so/8612060b15a44c9cbf1056a20b39e03b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">安装依赖</span></span></p></div><pre id="https://www.notion.so/e8516df5767f45dc99b580afa691c629" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> libncurses5-dev libgnome2-dev <span class="token punctuation">\</span><span class="token punctuation">\</span>
+libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev <span class="token punctuation">\</span><span class="token punctuation">\</span>
+libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev python3.6-dev <span class="token punctuation">\</span><span class="token punctuation">\</span>
+ruby-dev mercurial</span></span></span></code></pre><div id="https://www.notion.so/1677f981f45c49ad9b26c0b86b8982d6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">下载源码</span></span></p></div><pre id="https://www.notion.so/d8ab6d8972ed49ad8b8c0c22a1dbdbc2" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">git</span> clone https://github.com/vim/vim.git</span></span></span></code></pre><div id="https://www.notion.so/863e31cc0d8140fba7f2f5d107017678" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后解压并进入src目录</span></span></p></div><pre id="https://www.notion.so/1a63bf57040e402388a10386e8567e54" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">unzip</span> vim-master.zip
+<span class="token builtin class-name">cd</span> vim-master/src</span></span></span></code></pre><div id="https://www.notion.so/ec144e0404684e90b7decedb89116209" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">设置编译配置</span></span></p></div><pre id="https://www.notion.so/25a61b97df1249d79e20a2a1cc65f4df" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>./configure --with-features<span class="token operator">=</span>huge --enable-python3interp --enable-pythoninterp <span class="token punctuation">\</span>
+--with-python-config-dir<span class="token operator">=</span>/usr/lib/python2.7/config-x86_64-linux-gnu/ <span class="token punctuation">\</span>
+--enable-rubyinterp --enable-luainterp --with-lua-prefix<span class="token operator">=</span>/usr --enable-perlinterp <span class="token punctuation">\</span>
+--with-python3-config-dir<span class="token operator">=</span>/usr/lib/python3.8/config-3.8-x86_64-linux-gnu <span class="token punctuation">\</span>
+--enable-multibyte --enable-cscope --disable-gui --prefix<span class="token operator">=</span>/usr/local/vim8</span></span></span></code></pre><blockquote id="https://www.notion.so/350d39808df640699145f8adf7772dcc" class="ColorfulBlock ColorfulBlock--ColorBlue Quote"><span class="SemanticStringArray"><span class="SemanticString">注：其中的python-config-dir、python3-config-dir需要修改成你的python对应目录</span></span></blockquote><div id="https://www.notion.so/80be6fb5edb34f5b9d1810b5a4547eac" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后编译</span></span></p></div><pre id="https://www.notion.so/252fbd04bb084e06acbb0cc263cc48cf" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">sudo</span> <span class="token function">make</span>
+<span class="token function">sudo</span> <span class="token function">make</span> <span class="token function">install</span></span></span></span></code></pre><div id="https://www.notion.so/f5612220675448cfbf082175b8d676af" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">安装完成后
+输入</span></span></p></div><pre id="https://www.notion.so/b25994d18edd4d5abcc56acfc8984c37" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">vim</span></span></span></span></code></pre><div id="https://www.notion.so/abb47423eec94c159979ae261327510e" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">若提示未找到命令。
+则使用which或者whereis命令寻找vim的执行文件</span></span></p></div><pre id="https://www.notion.so/98954ad6e9ba4afbb2c6f30b104bda74" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">whereis</span> <span class="token function">vim</span></span></span></span></code></pre><div id="https://www.notion.so/ea33b443b0c64235a61abf95e63de81c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后将vim所在执行路径加入PATH中</span></span></p></div><pre id="https://www.notion.so/9f406edfdfb74882a4f7efe70d89f33f" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/usr/local/vim8/bin/</span></span></span></code></pre><div id="https://www.notion.so/2c993902c1ee4753b1bd35873f7c5e66" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/1cf8f57c965d46199070962e803516e8" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>

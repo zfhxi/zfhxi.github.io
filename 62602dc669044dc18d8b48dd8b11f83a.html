@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+  <meta name="theme-color" content="#FFFFFF">
+  <meta property="og:title" content="Linux安装Matlab流程">
+    <meta property="og:type" content="blog">
+  <title>Linux安装Matlab流程</title>
+  <!-- Favicon -->
+    <link rel="shortcut icon" href="🏡">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-solarizedlight.min.css">
+  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+  <link rel="stylesheet" type="text/css" href="css/notablog.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+    <a href="index.html">
+      <div class="Navbar__Btn"><span>🏡</span> <span>Home</span></div>
+    </a>
+                                                                                                                                                                                                                    <span class="Navbar__Delim">&centerdot;</span>
+    <a href="links.html">
+      <div class="Navbar__Btn"><span>🔗</span> <span>Links</span></div>
+    </a>
+                <span class="Navbar__Delim">&centerdot;</span>
+    <a href="about.html">
+      <div class="Navbar__Btn"><span>👦🏻</span> <span>About</span></div>
+    </a>
+                          </nav>
+  <header class="Header">
+        <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    <div>
+            <span class="Header__Icon"><span>📑</span></span>
+            <span class="Header__Title">Linux安装Matlab流程</span>
+
+    </div>
+        <div class="DateTagBar">
+            <span class="DateTagBar__Item DateTagBar__Date">Posted on Tue, Oct 2, 2018</span>
+                  <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--yellow">
+        <a href="tag/Matlab.html">Matlab</a>
+      </span>
+          </div>
+      </header>
+  <article id="https://www.notion.so/62602dc669044dc18d8b48dd8b11f83a" class="PageRoot"><div id="https://www.notion.so/a5ae6172402a4440b5ea8167ba771602" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">一般安装文件涉及到三个（假设在~/Matlab/中）：</span></span></p></div><pre id="https://www.notion.so/8fc80d979a0e415b8332cabef4b33138" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>***_Crack.zip
+***dvd1.iso
+***dvd2.iso
+</span></span></span></code></pre><div id="https://www.notion.so/f278522cd8aa4e7e887e81889e9982df" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">先解压破解补丁：</span></span></p></div><pre id="https://www.notion.so/ce53d515670947368decbebbaed0e7ba" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">unzip</span> ***_Crack.zip <span class="token punctuation">[</span>-d hello<span class="token punctuation">]</span></span></span></span></code></pre><div id="https://www.notion.so/bbdfaea87b474ea98e69f5c67c2c6463" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">[]</code></span><span class="SemanticString">中的内容可选。</span></span></p></div><div id="https://www.notion.so/71078b0e6b9943c68752b9a41ba79f56" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">然后创建目录，并挂载：</span></span></p></div><pre id="https://www.notion.so/9dab1ad8a164401f9734c9e86f1046ab" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">mkdir</span> ~/iso
+<span class="token function">sudo</span> <span class="token function">mount</span> -o loop ~/Matlab/***dvd1.iso
+<span class="token builtin class-name">cd</span> ~
+<span class="token function">sudo</span> ~/iso/install</span></span></span></code></pre><div id="https://www.notion.so/f30ea910885e4b9096f6fb3d0343f106" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">输入破解补丁解压后的readme.txt中的key。
+安装到一半，或者80%等各种进度，提示挂载</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">dvd2.iso</code></span><span class="SemanticString">：</span></span></p></div><pre id="https://www.notion.so/db286217dccf46e9bc02dc0c3c5a53d4" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">sudo</span> <span class="token function">mount</span> -o loop ~/Matlab/***dvd2.iso</span></span></span></code></pre><div id="https://www.notion.so/8efc7b8ed43041319c5f149c2d7b1490" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">完成后，将破解补丁解压的目录中破解文件移动到Matlab安装目录的/bin/glnx64/中对应，然后将license\_standalone.lic移动到Matlab\_install_dir/licenses/下。</span></span></p></div><div id="https://www.notion.so/ca08d76073024c1aa23576dbc5f92a9c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">问题：</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">Can&#x27;t reload &#x27;/usr/loca​l/MATLAB/R​2017b/bin/​glnxa64/li​bmwdastudi​o.so&#x27;</code></span><span class="SemanticString">
+见:</span></span></p></div><div id="https://www.notion.so/75ccde2a97a74fdaba1d85518c10acec" class="Bookmark"><a href="https://www.mathworks.com/matlabcentral/answers/361053-can-t-reload-usr-local-matlab-r2017b-bin-glnxa64-libmwdastudio-so"><h5 class="Bookmark__Title">Can&#x27;t reload &#x27;/usr/local/MATLAB/R2017b/bin/glnxa64/libmwdastudio.so&#x27; - MATLAB Answers - MATLAB Central</h5><p class="Bookmark__Desc">Can&amp;#39;t reload... Learn more about libmwdastudio.so, can&#x27;t reload (linux) Simulink</p><p class="Bookmark__Link">https://www.mathworks.com/matlabcentral/answers/361053-can-t-reload-usr-local-matlab-r2017b-bin-glnxa64-libmwdastudio-so</p></a></div></article>  <div id="vcomments"></div>
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'x3yNlOp8snKVbHLuM3MDgyPm-gzGzoHsz',
+      appKey: 'IxbPmtJ4C181kqwCPyUfHb67',
+      avatar: 'retro',
+      placeholder: 'Welcome to comment here233!',
+      requiredFields: ['nick', 'mail']
+    })
+  </script>
+  <footer class="Footer">
+    <div>&copy; idzc.me 2020</div>
+    <div>&centerdot;</div>
+    <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+        rel="noopener noreferrer">Notablog</a>.
+    </div>
+  </footer>
+</body>
+
+</html>
