@@ -31,13 +31,14 @@
 <url> <loc>https://idzc.me/posts/2bcafec576ec4a79b892c9ec55dff1ac</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/73b5d747647345049c22a78e0b298950</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/af05f03f73624888839cb455b42209e7</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/posts/346b8ecb73b647ea87dc72acc5ee12cc</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/posts/fd10bb65e71543649d08741f44075c5f</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/7837b0e5b9bd46b4bb6ae766ba1084e5</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/posts/7f2686835a1844f08b9a09b0ed47c4ab</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/dde1b1256cec4dcbb9bb1f7649e4198e</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/1bc52f002a8e4e4eab5b1ac6b4e9f86d</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/posts/fd10bb65e71543649d08741f44075c5f</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/posts/2d23cde5508d4675bb1fe81ddab169f1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/posts/2366edf10d0b4c1aa10133ad4f2bd15d</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/posts/346b8ecb73b647ea87dc72acc5ee12cc</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/posts/2d23cde5508d4675bb1fe81ddab169f1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/Programming</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/Underlying Study</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/Deep Learning</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -58,8 +59,9 @@
 <url> <loc>https://idzc.me/tags/DesignPattern</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/VMware</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/underlying</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://idzc.me/tags/AwesomeWM</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/tags/Linux</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/tags/Temporal Action Localization</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://idzc.me/tags/AwesomeWM</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/archives/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/categories/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://idzc.me/links/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
